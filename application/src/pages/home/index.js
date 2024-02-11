@@ -1,9 +1,11 @@
 import { Link } from 'react-router-dom'; 
+import ResponsiveAppBar from '../../components/home/home_appbar';
 
 const Home = () => {
 
     return (
         <div>
+            <ResponsiveAppBar/>
             <h1>
                 Home Page
             </h1>
