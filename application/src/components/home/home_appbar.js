@@ -1,6 +1,7 @@
 import * as React from 'react';
 import AppBar from '@mui/material/AppBar';
 import Container from '@mui/material/Container';
+import Button from '@mui/material/Button';
 import { Toolbar, Typography } from '@mui/material';
 import { Icon } from '@material-ui/core';
 import EyeLogo from '../../assets/eye_logo.svg';
@@ -11,7 +12,7 @@ function ResponsiveAppBar() {
     return (
     <AppBar position="static" style={{ background: "#C8C8C8"}}>
         <Container maxWidth="xl">
-            <Toolbar disableGutters>
+            <Toolbar disableGutters sx={{ display: "flex", justifyContent: "space-between" }}>
                 <Link to="/" style={{ height: "4em", width: "12em", display: "flex", alignItems: "center", justifyContent: "center", textDecoration: "none"}}>
                     <Icon style={{ width: "2.2em", height: "2em"}}>
                         <img src={EyeLogo} height={48} width={48}/>
@@ -27,6 +28,11 @@ function ResponsiveAppBar() {
                     >
                     SightBytes
                     </Typography>
+                </Link>
+                <Link to="/login" style={{ textDecoration: "none" }}>
+                    <Button color="inherit">
+                        Login
+                    </Button>
                 </Link>
             </Toolbar>
         </Container>
