@@ -5,12 +5,25 @@ const Test = () => {
     const [distance, setDistance] = useState(0);
 
     useEffect(() => {
-        const intervalId = setInterval(() => {
-            const randomDist = Math.floor(Math.random() * 101);
-            setDistance(randomDist);
-        }, 1000);
+        const callAPI = async () => {
+          try {
+            const response = await fetch('http://127.0.0.1:8000/randnum');
+            const data = await response.json();
+            console.log(data.random_number);
+            setDistance(data.random_number);
+          } catch (error) {
+            console.error('Error fetching data:', error);
+          }
+        };
+    
+        callAPI();
+    
+        // Set up an interval to get data every second
+        const intervalId = setInterval(callAPI, 1000);
+    
+        // Clean up the interval when the component unmounts
         return () => clearInterval(intervalId);
-    }, []);
+      }, []);
 
     const progressBarStyle = {
         height: `${(distance / 100) * 300}px`,
