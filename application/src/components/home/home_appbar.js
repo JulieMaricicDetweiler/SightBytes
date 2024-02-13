@@ -30,9 +30,19 @@ function ResponsiveAppBar() {
             </Link>
         </Container>
         <Container maxWidth="m" sx={{ display: "flex", alignItems: "center", justifyContent: "end", marginRight: { md: "4em", xl: '8em' } }}>
-            <Toolbar disableGutters sx={{ display: "flex", justifyContent: "space-between",  alignItems: "center", justifyContent: "end" }}>
+            <Toolbar disableGutters sx={{ display: "flex", justifyContent: "space-between",  alignItems: "center", justifyContent: "end", columnGap: "2em" }}>
                 <Link to="/login" style={{ textDecoration: "none" }}>
-                    <Button style={{ fontFamily: "helvetica" }} variant="contained">
+                    <Button size="large" style={{ fontFamily: "helvetica", fontWeight: "bold", color: "black" }}>
+                        About
+                    </Button>
+                </Link>
+                <Link to="/login" style={{ textDecoration: "none" }}>
+                    <Button size="large" style={{ fontFamily: "helvetica", fontWeight: "bold", color: "black" }}>
+                        Contact Us
+                    </Button>
+                </Link>
+                <Link to="/login" style={{ textDecoration: "none" }}>
+                    <Button size="large" style={{ fontFamily: "helvetica", fontWeight: "bold" }} variant="contained">
                         Login
                     </Button>
                 </Link>
