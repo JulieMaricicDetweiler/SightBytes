@@ -7,8 +7,8 @@ import { Icon } from '@material-ui/core';
 import EyeLogo from '../../assets/eye_logo.svg';
 import { Link } from 'react-router-dom';
 
-
 function ResponsiveAppBar() {
+
     return (
     <AppBar position="static" style={{ background: "#C8C8C8", display: "flex", flexDirection: "row" }}>
         <Container maxWidth="m" sx={{ marginLeft: { md: "4em", xl: '8em' } }}>
@@ -31,12 +31,12 @@ function ResponsiveAppBar() {
         </Container>
         <Container maxWidth="m" sx={{ display: "flex", alignItems: "center", justifyContent: "end", marginRight: { md: "4em", xl: '8em' } }}>
             <Toolbar disableGutters sx={{ display: "flex", justifyContent: "space-between",  alignItems: "center", justifyContent: "end", columnGap: "2em" }}>
-                <Link to="/login" style={{ textDecoration: "none" }}>
+                <Link to="/" style={{ textDecoration: "none" }}>
                     <Button size="large" style={{ fontFamily: "helvetica", fontWeight: "bold", color: "black" }}>
                         About
                     </Button>
                 </Link>
-                <Link to="/login" style={{ textDecoration: "none" }}>
+                <Link to="/" style={{ textDecoration: "none" }}>
                     <Button size="large" style={{ fontFamily: "helvetica", fontWeight: "bold", color: "black" }}>
                         Contact Us
                     </Button>

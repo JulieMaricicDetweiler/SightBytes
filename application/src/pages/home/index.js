@@ -1,14 +1,13 @@
 import { Link } from 'react-router-dom'; 
 import ResponsiveAppBar from '../../components/home/home_appbar';
+import HomeContainer from '../../components/home/home_maincontainer';
 
 const Home = () => {
 
     return (
         <div>
             <ResponsiveAppBar/>
-            <h1>
-                Home Page
-            </h1>
+            <HomeContainer/>
             <Link to="/test">
                 <button>Vision Test</button>
             </Link>
