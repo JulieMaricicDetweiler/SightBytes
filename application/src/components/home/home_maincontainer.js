@@ -9,15 +9,15 @@ function HomeContainer() {
     return (
     <Container maxWidth="xl" sx={{ display: "flex", flexDirection: "column", alignItems: "center"}}>
         <Icon style={{ width: "auto", height: "auto"}}>
-            <img alt="logo of a single eye" src={EyeLogo} height={200} width={200}/>
+            <img alt="logo of a single eye" src={EyeLogo} height={window.screen.width * .10} width={window.screen.width * .10}/>
         </Icon>
         <Typography
-            variant="h2"
             noWrap
             sx={{
                 fontFamily: 'helvetica',
                 fontWeight: 300,
-                color: 'black'
+                color: 'black',
+                typography: { xs: 'h4', sm: 'h3', md: 'h2' }
             }}
         >
         Home Myopia Assessment
