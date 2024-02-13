@@ -15,7 +15,7 @@ function ResponsiveAppBar() {
             <Toolbar disableGutters sx={{ display: "flex", justifyContent: "space-between" }}>
                 <Link to="/" style={{ height: "4em", width: "12em", display: "flex", alignItems: "center", justifyContent: "center", textDecoration: "none"}}>
                     <Icon style={{ width: "2.2em", height: "2em"}}>
-                        <img src={EyeLogo} height={48} width={48}/>
+                        <img alt="logo of a single eye" src={EyeLogo} height={48} width={48}/>
                     </Icon>
                     <Typography
                         variant="h6"
@@ -30,7 +30,7 @@ function ResponsiveAppBar() {
                     </Typography>
                 </Link>
                 <Link to="/login" style={{ textDecoration: "none" }}>
-                    <Button color="inherit">
+                    <Button style={{ fontFamily: "helvetica" }} variant="contained">
                         Login
                     </Button>
                 </Link>
