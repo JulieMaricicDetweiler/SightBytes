@@ -10,25 +10,27 @@ import { Link } from 'react-router-dom';
 
 function ResponsiveAppBar() {
     return (
-    <AppBar position="static" style={{ background: "#C8C8C8"}}>
-        <Container maxWidth="xl">
-            <Toolbar disableGutters sx={{ display: "flex", justifyContent: "space-between" }}>
-                <Link to="/" style={{ height: "4em", width: "12em", display: "flex", alignItems: "center", justifyContent: "center", textDecoration: "none"}}>
-                    <Icon style={{ width: "2.2em", height: "2em"}}>
-                        <img alt="logo of a single eye" src={EyeLogo} height={48} width={48}/>
-                    </Icon>
-                    <Typography
-                        variant="h6"
-                        noWrap
-                        sx={{
-                            fontFamily: 'monospace',
-                            fontWeight: 700,
-                            color: 'black'
-                        }}
-                    >
-                    SightBytes
-                    </Typography>
-                </Link>
+    <AppBar position="static" style={{ background: "#C8C8C8", display: "flex", flexDirection: "row" }}>
+        <Container maxWidth="m" sx={{ marginLeft: { md: "4em", xl: '8em' } }}>
+            <Link to="/" style={{ height: "4em", width: "12em", display: "flex", alignItems: "center", justifyContent: "center", textDecoration: "none"}}>
+                <Icon style={{ width: "2.2em", height: "2em"}}>
+                    <img alt="logo of a single eye" src={EyeLogo} height={48} width={48}/>
+                </Icon>
+                <Typography
+                    variant="h6"
+                    noWrap
+                    sx={{
+                        fontFamily: 'monospace',
+                        fontWeight: 700,
+                        color: 'black'
+                    }}
+                >
+                SightBytes
+                </Typography>
+            </Link>
+        </Container>
+        <Container maxWidth="m" sx={{ display: "flex", alignItems: "center", justifyContent: "end", marginRight: { md: "4em", xl: '8em' } }}>
+            <Toolbar disableGutters sx={{ display: "flex", justifyContent: "space-between",  alignItems: "center", justifyContent: "end" }}>
                 <Link to="/login" style={{ textDecoration: "none" }}>
                     <Button style={{ fontFamily: "helvetica" }} variant="contained">
                         Login
