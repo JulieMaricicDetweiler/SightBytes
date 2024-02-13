@@ -1,4 +1,3 @@
-import { Link } from 'react-router-dom'; 
 import ResponsiveAppBar from '../../components/home/home_appbar';
 import HomeContainer from '../../components/home/home_maincontainer';
 

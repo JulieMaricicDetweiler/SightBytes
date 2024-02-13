@@ -46,7 +46,7 @@ function HomeContainer() {
         <Link to="/" style={{ textDecoration: "none" }}>
             <Chip 
             label="Learn more" 
-            style={{ backgroundColor:'#00ffff' }}
+            style={{ backgroundColor:'#86c5da' }}
             clickable 
             sx={{ 
                 color: 'white',
