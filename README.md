@@ -1,7 +1,6 @@
 # SightBytes
 Senior Project
 
-
 # Build Docker image
 docker build -t opencv-api .
 
