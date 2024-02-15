@@ -1,18 +1,22 @@
 import * as React from 'react';
 import Container from '@mui/material/Container';
 import Chip from '@mui/material/Chip';
-import { Icon } from '@material-ui/core';
-import { Typography } from '@mui/material';
-import EyeLogo from '../../assets/eye_logo.svg';
+import { Typography, SvgIcon } from '@mui/material';
+import { ReactComponent as EyeLogo } from '../../assets/eye_logo.svg';
 import { Link } from 'react-router-dom';
 
 function HomeContainer() {
 
     return (
     <Container maxWidth="xl" sx={{ display: "flex", flexDirection: "column", alignItems: "center", gap: "2em", marginTop: "5vw"}}>
-        <Icon style={{ width: "auto", height: "auto"}}>
-            <img alt="logo of a single eye" src={EyeLogo} height={window.screen.width * .10} width={window.screen.width * .10}/>
-        </Icon>
+        <SvgIcon 
+            component={EyeLogo} 
+            sx={{ 
+            width: window.screen.width * .15,
+            height: window.screen.width * .15,
+            }} 
+            inheritViewBox 
+        />
         <Typography
             noWrap
             sx={{
