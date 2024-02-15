@@ -1,26 +1,22 @@
 name: Deploy to Firebase Hosting
+
 on:
   push:
     branches:
       - main
-    paths:
-      - 'application/**'
+
 jobs:
-  build-and-deploy:
+  build_and_deploy:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
-    - name: Install dependencies
-      run: |
-        cd application
-        npm install --legacy-peer-deps
-    - name: Build
-      run: |
-        cd application
-        npm run build
-    - name: Deploy to Firebase
-      run: |
-        cd application
-        firebase deploy --only hosting
+    - uses: actions/setup-node@v2
+      with:
+        node-version: '20' # Set this to the node version you are using
+    - run: npm install --legacy-peer-deps
+    - run: npm run build
+    - uses: w9jds/firebase-action@master
+      with:
+        args: deploy --only hosting
       env:
         FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
