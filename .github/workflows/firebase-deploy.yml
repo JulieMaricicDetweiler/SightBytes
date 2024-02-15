@@ -19,8 +19,8 @@ jobs:
         cd application
         npm run build
     - name: Deploy to Firebase
-      uses: w9jds/firebase-action@master
-      with:
-        args: deploy --only hosting
+      run: |
+        cd application
+        firebase deploy --only hosting
       env:
         FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
