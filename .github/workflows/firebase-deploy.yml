@@ -6,32 +6,30 @@ on:
       - main
 
 jobs:
-  deploy:
+  build-and-deploy:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
-
-    - name: Setup Node.js
-      uses: actions/setup-node@v2
-      with:
-        node-version: '20' # Adjust based on your project requirements
-
     - name: Install dependencies
       run: |
         cd application
-        npm install --legacy-peer-deps
-
-    - name: Build the project
+        npm install
+    - name: Build
       run: |
         cd application
         npm run build
-
-    - name: Install Firebase CLI
-      run: npm install -g firebase-tools
-
+      env:
+        REACT_APP_API_KEY: ${{ secrets.REACT_APP_API_KEY }}
+        REACT_APP_AUTH_DOMAIN: ${{ secrets.REACT_APP_AUTH_DOMAIN }}
+        REACT_APP_DATABASE_URL: ${{ secrets.REACT_APP_DATABASE_URL }}
+        REACT_APP_PROJECT_ID: ${{ secrets.REACT_APP_PROJECT_ID }}
+        REACT_APP_STORAGE_BUCKET: ${{ secrets.REACT_APP_STORAGE_BUCKET }}
+        REACT_APP_MESSAGING_SENDER_ID: ${{ secrets.REACT_APP_MESSAGING_SENDER_ID }}
+        REACT_APP_APP_ID: ${{ secrets.REACT_APP_APP_ID }}
     - name: Deploy to Firebase
       run: |
         cd application
-        firebase deploy --only hosting --token ${{ secrets.FIREBASE_TOKEN }}
+        firebase deploy --only hosting
       env:
         FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
+
