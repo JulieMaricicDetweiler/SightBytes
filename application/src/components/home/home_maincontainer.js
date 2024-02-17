@@ -23,7 +23,7 @@ function HomeContainer() {
                 fontFamily: 'helvetica',
                 fontWeight: 300,
                 color: 'black',
-                typography: { xs: 'h4', sm: 'h3', md: 'h2' }
+                typography: { xs: 'h5', sm: 'h3', md: 'h2' }
             }}
         >
         Home Myopia Assessment

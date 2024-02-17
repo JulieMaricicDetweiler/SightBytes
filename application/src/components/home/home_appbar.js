@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, { useState, useEffect } from 'react';
 import AppBar from '@mui/material/AppBar';
 import Container from '@mui/material/Container';
 import Button from '@mui/material/Button';
@@ -7,6 +7,16 @@ import { ReactComponent as EyeLogo } from '../../assets/eye_logo.svg';
 import { Link } from 'react-router-dom';
 
 function HomeAppBar() {
+    const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
+
+    //Detect screen size for responsive layout
+    useEffect(() => {
+        const handleResize = () => {
+          setIsMobile(window.innerWidth < 768);
+        }
+        window.addEventListener('resize', handleResize);
+        return () => window.removeEventListener('resize', handleResize);
+      }, []);
 
     return (
     <AppBar position="static" style={{ background: "#C8C8C8", display: "flex", flexDirection: "row" }}>
@@ -28,16 +38,16 @@ function HomeAppBar() {
         </Container>
         <Container maxWidth="m" sx={{ display: "flex", alignItems: "center", justifyContent: "end", marginRight: { md: "4em", xl: '8em' } }}>
             <Toolbar disableGutters sx={{ display: "flex", justifyContent: "space-between",  alignItems: "center", columnGap: "2em" }}>
-                <Link to="/" style={{ textDecoration: "none" }}>
+                {!isMobile && (<Link to="/" style={{ textDecoration: "none" }}>
                     <Button size="large" style={{ fontFamily: "helvetica", fontWeight: "bold", color: "black" }}>
                         About
                     </Button>
-                </Link>
-                <Link to="/" style={{ textDecoration: "none" }}>
+                </Link>)}
+                {!isMobile && (<Link to="/" style={{ textDecoration: "none" }}>
                     <Button size="large" style={{ fontFamily: "helvetica", fontWeight: "bold", color: "black" }}>
                         Contact Us
                     </Button>
-                </Link>
+                </Link>)}
                 <Link to="/login" style={{ textDecoration: "none" }}>
                     <Button size="large" style={{ fontFamily: "helvetica", fontWeight: "bold" }} variant="contained">
                         Login
