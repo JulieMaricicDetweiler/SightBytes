@@ -5,7 +5,7 @@ import { Typography, SvgIcon } from '@mui/material';
 import { ReactComponent as EyeLogo } from '../../assets/eye_logo.svg';
 import { Link } from 'react-router-dom';
 
-function LoginAppBar() {
+function DefaultAppBar() {
 
     return (
     <AppBar position="static" style={{ background: "#C8C8C8", display: "flex", flexDirection: "row" }}>
@@ -28,4 +28,4 @@ function LoginAppBar() {
     </AppBar>
     );
 }
-export default LoginAppBar;
+export default DefaultAppBar;

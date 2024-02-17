@@ -17,7 +17,7 @@ function SignIn() {
         event.preventDefault();
         const data = new FormData(event.currentTarget);
         console.log({
-          username: data.get('username'),
+          email: data.get('email'),
           password: data.get('password'),
         });
       };
@@ -51,10 +51,10 @@ function SignIn() {
             margin="normal"
             required
             fullWidth
-            id="username"
-            label="Username"
-            name="username"
-            autoComplete="username"
+            id="email"
+            label="Email Address"
+            name="email"
+            autoComplete="email"
             autoFocus
         />
         <TextField
