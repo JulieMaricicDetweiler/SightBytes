@@ -145,7 +145,7 @@ const Test = () => {
     const createSession = async() => {
       console.log('Attempting to create a session');
       try {
-        const response = await axios.post('http://localhost:80/create-session');
+        const response = await axios.post('http://4.152.91.100/create-session');
         const newSessionId = response.data.session_id; // Assuming this is how your session ID is returned
         setSessionId(newSessionId); // Set session ID in state
 
