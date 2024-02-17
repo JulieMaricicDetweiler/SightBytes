@@ -30,7 +30,7 @@ jobs:
     - name: Deploy to Firebase
       run: |
         cd application
-        firebase deploy --only hosting
+        firebase deploy --only hosting --token ${{ secrets.FIREBASE_TOKEN }}
       env:
         FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
 
