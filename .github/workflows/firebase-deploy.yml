@@ -27,6 +27,10 @@ jobs:
         REACT_APP_MESSAGING_SENDER_ID: ${{ secrets.REACT_APP_MESSAGING_SENDER_ID }}
         REACT_APP_APP_ID: ${{ secrets.REACT_APP_APP_ID }}
         CI: false
+    - name: Install Firebase CLI
+      run: |
+        cd application
+        npm install -g firebase-tools
     - name: Deploy to Firebase
       run: |
         cd application
