@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import './test.css';
+import DefaultAppBar from '../../components/shared/appbar';
 
 const Test = () => {
     const [distance, setDistance] = useState(0);
@@ -33,6 +34,7 @@ const Test = () => {
 
     return (
         <div>
+            <DefaultAppBar/>
             <h1 className="main-heading"> Vision Test </h1>
             <div className="test">
                 <div className="progress-container">
