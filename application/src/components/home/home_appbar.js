@@ -6,7 +6,7 @@ import { Toolbar, Typography, SvgIcon } from '@mui/material';
 import { ReactComponent as EyeLogo } from '../../assets/eye_logo.svg';
 import { Link } from 'react-router-dom';
 
-function ResponsiveAppBar() {
+function HomeAppBar() {
 
     return (
     <AppBar position="static" style={{ background: "#C8C8C8", display: "flex", flexDirection: "row" }}>
@@ -48,4 +48,4 @@ function ResponsiveAppBar() {
     </AppBar>
     );
 }
-export default ResponsiveAppBar;
+export default HomeAppBar;

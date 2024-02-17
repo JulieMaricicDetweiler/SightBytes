@@ -1,11 +1,11 @@
-import ResponsiveAppBar from '../../components/home/home_appbar';
+import HomeAppBar from '../../components/home/home_appbar';
 import HomeContainer from '../../components/home/home_maincontainer';
 
 const Home = () => {
 
     return (
         <div>
-            <ResponsiveAppBar/>
+            <HomeAppBar/>
             <HomeContainer/>
         </div>
     );

@@ -1,12 +1,11 @@
 import { Link } from 'react-router-dom'; 
+import LoginAppBar from '../../components/login/login_appbar';
 
 const Login = () => {
 
     return (
         <div>
-            <h1>
-                Login
-            </h1>
+            <LoginAppBar/>
             <Link to="/">
                 <button>Home Page</button>
             </Link>
