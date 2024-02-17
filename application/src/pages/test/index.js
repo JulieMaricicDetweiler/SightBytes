@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { getDatabase, ref, set, update, onValue, get } from 'firebase/database';
 import axios from 'axios';
 import './test.css';
+import DefaultAppBar from '../../components/shared/appbar';
 
 const Test = () => {
     // Distance detection
@@ -202,7 +203,6 @@ const Test = () => {
   return (
       <div className="test-page-container">
           <h1 className="main-heading"> Vision Test </h1>
-
           {!isMobile && !sessionId && (
             <button onClick={createSession}>Create Session</button>
           )}
