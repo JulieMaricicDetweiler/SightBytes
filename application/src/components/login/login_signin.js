@@ -9,19 +9,60 @@ import Link from '@mui/material/Link';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
+import firebaseConfig from "../../firebase/firebaseConfig";
+import { signInWithEmailAndPassword, onAuthStateChanged, signOut } from 'firebase/auth';
 
 
 function SignIn() {
 
+    const [email, setEmail] = React.useState('');
+    const [password, setPassword] = React.useState('');
+    const [authUser, setAuthUser] = React.useState(null);
+
+    //check if user is logged in or not 
+    React.useEffect (() => {    
+        const listen = firebaseConfig.auth.onAuthStateChanged((user) => {
+            if (user) {
+                setAuthUser(user);
+            } else {
+                setAuthUser(null);
+            }
+        }
+        );
+            return () => {
+                listen();
+            }
+    }, []);
+
+
     const handleSubmit = (event) => {
         event.preventDefault();
-        const data = new FormData(event.currentTarget);
-        console.log({
-          email: data.get('email'),
-          password: data.get('password'),
+        signInWithEmailAndPassword(firebaseConfig.auth, email, password).then((userCredential) => {
+            // Signed in
+            const user = userCredential.user;
+            console.log(user);
+            console.log("WE IN");
+            // ...
+          }
+          ).catch((error) => {
+            const errorCode = error.code;
+            const errorMessage = error.message;
+            console.log(errorCode);
+            console.log(errorMessage);
         });
       };
+      
     
+      const signOut = () => {
+        firebaseConfig.auth.signOut(firebaseConfig.auth).then(() => {
+          console.log("Sign out successful");
+          setAuthUser(null);
+        }).catch((error) => {
+          console.log("Error signing out");
+        });
+      }
+
+
     return (
    
     <Container component="main" maxWidth="xs">
@@ -56,6 +97,8 @@ function SignIn() {
             name="email"
             autoComplete="email"
             autoFocus
+            value = {email}
+            onChange = {(e) => setEmail(e.target.value)}
         />
         <TextField
             margin="normal"
@@ -66,6 +109,8 @@ function SignIn() {
             type="password"
             id="password"
             autoComplete="current-password"
+            value = {password}
+            onChange = {(e) => setPassword(e.target.value)}
         />
         <FormControlLabel
             control={<Checkbox value="remember" color="primary" />}
@@ -84,7 +129,17 @@ function SignIn() {
         </Link>
         </Box>
     </Box>
+    <Typography>
+        {authUser ? 
+        <> 
+            {authUser.uid} "User is logged in" <Button onClick={signOut}>Sign Out</Button>
+        </>:    
+            "User is not logged in"
+    }
+        
+    </Typography>
     </Container>
+  
     );
 }
 

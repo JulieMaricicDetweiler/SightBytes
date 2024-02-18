@@ -8,14 +8,36 @@ import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
+import firebaseConfig from "../../firebase/firebaseConfig";
+import { createUserWithEmailAndPassword } from 'firebase/auth';
+import { addDoc, collection, doc, setDoc } from "firebase/firestore";
 
 function SignUp() {
+    const [email, setEmail] = React.useState('');
+    const [password, setPassword] = React.useState('');
+    const [firstName, setFirstName] = React.useState('');
+    const [lastName, setLastName] = React.useState('');
+
+
     const handleSubmit = (event) => {
         event.preventDefault();
-        const data = new FormData(event.currentTarget);
-        console.log({
-          email: data.get('email'),
-          password: data.get('password'),
+        createUserWithEmailAndPassword(firebaseConfig.auth, email, password).then(
+            async (result) => {
+              console.log(result)
+              try {
+                const ref = doc(firebaseConfig.firestore, "users", result.user.uid);
+                const docRef = await setDoc(ref, { email, firstName, lastName });
+                // alert("YEEEEE");
+                console.log("Succeffully created user and stored something");
+              } catch (e) {
+                console.error("Error adding document: ", e);
+              }
+            }
+        ).catch((error) => {
+            const errorCode = error.code;
+            const errorMessage = error.message;
+            console.log(errorCode);
+            console.log(errorMessage);
         });
       };
     
@@ -53,6 +75,8 @@ function SignUp() {
                     id="firstName"
                     label="First Name"
                     autoFocus
+                    value = {firstName}
+                    onChange = {(e) => setFirstName(e.target.value)}
                 />
                 </Grid>
                 <Grid item xs={12} sm={6}>
@@ -63,6 +87,8 @@ function SignUp() {
                     label="Last Name"
                     name="lastName"
                     autoComplete="family-name"
+                    value = {lastName}
+                    onChange = {(e) => setLastName(e.target.value)}
                 />
                 </Grid>
                 <Grid item xs={12}>
@@ -73,6 +99,8 @@ function SignUp() {
                     label="Email Address"
                     name="email"
                     autoComplete="email"
+                    value = {email}
+                    onChange = {(e) => setEmail(e.target.value)}
                 />
                 </Grid>
                 <Grid item xs={12}>
@@ -84,6 +112,8 @@ function SignUp() {
                     type="password"
                     id="password"
                     autoComplete="new-password"
+                    value = {password}
+                    onChange = {(e) => setPassword(e.target.value)}
                 />
                 </Grid>
             </Grid>
