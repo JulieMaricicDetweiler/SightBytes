@@ -15,7 +15,7 @@ function Terms_And_Conditions_Step() {
                 typography: { xs: 'h4', sm: 'h3', md: 'h2' }
             }}
         >
-        Home Myopia Assessment
+        Terms and Condition stuff
         </Typography>
 
     </Container>

@@ -1,5 +1,6 @@
 import * as React from 'react';
 import Box from '@mui/material/Box';
+import Chip from '@mui/material/Chip';
 import Stepper from '@mui/material/Stepper';
 import Step from '@mui/material/Step';
 import StepLabel from '@mui/material/StepLabel';
@@ -76,7 +77,7 @@ QontoStepIcon.propTypes = {
 
 
 function HorizontalLinearStepper() {
-    const steps = [<Terms_And_Conditions_Step/>, 'Create an ad group', 'Create an ad', "blah"];
+    const steps = [<Terms_And_Conditions_Step/>, 'some stuff', 'more stuff', "blah"];
     const [activeStep, setActiveStep] = React.useState(0);
 
     const handleNext = () => {
@@ -102,11 +103,23 @@ function HorizontalLinearStepper() {
         ) : (
             <React.Fragment>
             {steps.at(activeStep)}
-            <Box sx={{ display: 'flex', flexDirection: 'row', pt: 2 }}>
-
-                <Button onClick={handleNext}>
-                {activeStep === steps.length - 1 ? 'Finish' : 'Next'}
-                </Button>
+            <Box sx={{ display: 'flex', flexDirection: 'row', justifyContent: 'center', alignContent: 'center' }}>
+                <Chip 
+                onClick={handleNext}
+                label="Continue" 
+                color="primary" 
+                clickable 
+                sx={{ 
+                    fontFamily: 'helvetica',
+                    fontWeight: 500,
+                    fontSize: { xs: 16, sm: 19, md: 22 },
+                    padding: { xs: 1, sm: 2, md: 3 },
+                    "& .MuiChip-label": {
+                        paddingLeft: { xs: 2, sm: 4, md: 6 },
+                        paddingRight: { xs: 2, sm: 4, md: 6 }
+                    }
+                }}
+                />
             </Box>
             </React.Fragment>
         )}
