@@ -3,6 +3,7 @@ import { getDatabase, ref, set, update, onValue, get } from 'firebase/database';
 import axios from 'axios';
 import './test.css';
 import DefaultAppBar from '../../components/shared/appbar';
+import HorizontalLinearStepper from '../../components/test/horizontal_stepper';
 
 const Test = () => {
     // Distance detection
@@ -202,9 +203,10 @@ const Test = () => {
       
   return (
       <div className="test-page-container">
-          <h1 className="main-heading"> Vision Test </h1>
+          <DefaultAppBar/>
           {!isMobile && !sessionId && (
-            <button onClick={createSession}>Create Session</button>
+            <HorizontalLinearStepper/>
+            //<button onClick={createSession}>Create Session</button>
           )}
 
           {isMobile && !isConnected && (
