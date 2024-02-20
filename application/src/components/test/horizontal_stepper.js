@@ -5,10 +5,10 @@ import Step from '@mui/material/Step';
 import StepLabel from '@mui/material/StepLabel';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
-
 import PropTypes from 'prop-types';
 import { styled } from '@mui/material/styles';
 import StepConnector, { stepConnectorClasses } from '@mui/material/StepConnector';
+import Terms_And_Conditions_Step from './tc_step';
 
 
 const QontoConnector = styled(StepConnector)(({ theme }) => ({
@@ -39,14 +39,9 @@ const QontoStepIconRoot = styled('div')(({ theme, ownerState }) => ({
     display: 'flex',
     height: 22,
     alignItems: 'center',
-    ...(ownerState.active && {
+    ...((ownerState.active || ownerState.completed) && {
         color: '#784af4',
     }),
-    '& .QontoStepIcon-completedIcon': {
-        color: '#784af4',
-        zIndex: 1,
-        fontSize: 18,
-    },
     '& .QontoStepIcon-circle': {
         width: 8,
         height: 8,
@@ -59,13 +54,8 @@ function QontoStepIcon(props) {
     const { active, completed, className } = props;
 
     return (
-        <QontoStepIconRoot ownerState={{ active }} className={className}>
-        {/* {completed ? (
-            <Check className="QontoStepIcon-completedIcon" />
-        ) : (
+        <QontoStepIconRoot ownerState={{ active, completed }} className={className}>
             <div className="QontoStepIcon-circle" />
-        )} */}
-        <div className="QontoStepIcon-circle" />
         </QontoStepIconRoot>
     );
 }
@@ -86,15 +76,11 @@ QontoStepIcon.propTypes = {
 
 
 function HorizontalLinearStepper() {
-    const steps = ['Select campaign settings', 'Create an ad group', 'Create an ad'];
+    const steps = [<Terms_And_Conditions_Step/>, 'Create an ad group', 'Create an ad', "blah"];
     const [activeStep, setActiveStep] = React.useState(0);
 
     const handleNext = () => {
         setActiveStep((prevActiveStep) => prevActiveStep + 1);
-    };
-
-    const handleBack = () => {
-        setActiveStep((prevActiveStep) => prevActiveStep - 1);
     };
 
     const handleReset = () => {
@@ -103,17 +89,6 @@ function HorizontalLinearStepper() {
 
     return (
         <Box sx={{ width: '100%' }}>
-        <Stepper alternativeLabel activeStep={activeStep} connector={<QontoConnector />}>
-            {steps.map((label, index) => {
-            const stepProps = {};
-            const labelProps = {};
-            return (
-                <Step key={label} {...stepProps}>
-                <StepLabel StepIconComponent={QontoStepIcon} {...labelProps}>{label}</StepLabel>
-                </Step>
-            );
-            })}
-        </Stepper>
         {activeStep === steps.length ? (
             <React.Fragment>
             <Typography sx={{ mt: 2, mb: 1 }}>
@@ -126,17 +101,8 @@ function HorizontalLinearStepper() {
             </React.Fragment>
         ) : (
             <React.Fragment>
-            <Typography sx={{ mt: 2, mb: 1 }}>Step {activeStep + 1}</Typography>
+            {steps.at(activeStep)}
             <Box sx={{ display: 'flex', flexDirection: 'row', pt: 2 }}>
-                <Button
-                color="inherit"
-                disabled={activeStep === 0}
-                onClick={handleBack}
-                sx={{ mr: 1 }}
-                >
-                Back
-                </Button>
-                <Box sx={{ flex: '1 1 auto' }} />
 
                 <Button onClick={handleNext}>
                 {activeStep === steps.length - 1 ? 'Finish' : 'Next'}
@@ -144,6 +110,15 @@ function HorizontalLinearStepper() {
             </Box>
             </React.Fragment>
         )}
+        <Stepper alternativeLabel activeStep={activeStep} connector={<QontoConnector />}>
+            {steps.map((label) => {
+            return (
+                <Step key={label}>
+                <StepLabel StepIconComponent={QontoStepIcon}></StepLabel>
+                </Step>
+            );
+            })}
+        </Stepper>
         </Box>
     );
 }
