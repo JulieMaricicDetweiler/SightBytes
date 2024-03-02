@@ -10,6 +10,7 @@ import PropTypes from 'prop-types';
 import { styled } from '@mui/material/styles';
 import StepConnector, { stepConnectorClasses } from '@mui/material/StepConnector';
 import Terms_And_Conditions_Step from './tc_step';
+import Brightness_Step from './brightness_step';
 
 
 const QontoConnector = styled(StepConnector)(({ theme }) => ({
@@ -77,7 +78,7 @@ QontoStepIcon.propTypes = {
 
 
 function HorizontalLinearStepper() {
-    const steps = [<Terms_And_Conditions_Step/>, 'some stuff', 'more stuff', "blah"];
+    const steps = [<Terms_And_Conditions_Step/>, <Brightness_Step/>, 'more stuff', "blah"];
     const [activeStep, setActiveStep] = React.useState(0);
 
     const handleNext = () => {
@@ -117,7 +118,9 @@ function HorizontalLinearStepper() {
                     "& .MuiChip-label": {
                         paddingLeft: { xs: 2, sm: 4, md: 6 },
                         paddingRight: { xs: 2, sm: 4, md: 6 }
-                    }
+                    },
+                    marginTop: 4,
+                    marginBottom: 4
                 }}
                 />
             </Box>
