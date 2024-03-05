@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { useState } from 'react';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -39,7 +40,27 @@ function SignUp() {
             console.log(errorCode);
             console.log(errorMessage);
         });
-      };
+    };
+
+    const [isEmailValid, setIsEmailValid] = useState(false);
+    const [isEmailEmpty, setIsEmailEmpty] = useState(true);
+    const [errorHelperText, setHelperText] = useState("");
+
+    function checkEmailValidity(email) {
+        const emailValidity = String(email)
+        .toLowerCase()
+        .match(
+        /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|.(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+        );
+
+        setIsEmailValid(emailValidity)
+        setHelperText(emailValidity ? "" : "Invalid email address")
+    }
+
+    function checkEmailEmpty(email) {
+        setIsEmailEmpty(email.length == 0);
+        if (email.length == 0) { setHelperText("") }
+    }
     
       return (
         <Container component="main" maxWidth="xs">
@@ -64,7 +85,7 @@ function SignUp() {
             >
             Sign up
             </Typography>
-            <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
+            <Box component="form" onSubmit={handleSubmit} sx={{ mt: 3 }}>
             <Grid container spacing={2}>
                 <Grid item xs={12} sm={6}>
                 <TextField
@@ -95,12 +116,14 @@ function SignUp() {
                 <TextField
                     required
                     fullWidth
+                    error={!isEmailValid && !isEmailEmpty}
+                    helperText={errorHelperText}
                     id="email"
                     label="Email Address"
                     name="email"
                     autoComplete="email"
                     value = {email}
-                    onChange = {(e) => setEmail(e.target.value)}
+                    onChange = {(e) => { setEmail(e.target.value); checkEmailValidity(e.target.value); checkEmailEmpty(e.target.value) }}
                 />
                 </Grid>
                 <Grid item xs={12}>
