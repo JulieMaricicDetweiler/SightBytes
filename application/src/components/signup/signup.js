@@ -11,12 +11,14 @@ import Container from '@mui/material/Container';
 import firebaseConfig from "../../firebase/firebaseConfig";
 import { createUserWithEmailAndPassword } from 'firebase/auth';
 import { addDoc, collection, doc, setDoc } from "firebase/firestore";
+import { useNavigate } from 'react-router-dom';
 
 function SignUp() {
     const [email, setEmail] = React.useState('');
     const [password, setPassword] = React.useState('');
     const [firstName, setFirstName] = React.useState('');
     const [lastName, setLastName] = React.useState('');
+    const navigate = useNavigate();
 
 
     const handleSubmit = (event) => {
@@ -29,6 +31,7 @@ function SignUp() {
                 const docRef = await setDoc(ref, { email, firstName, lastName });
                 // alert("YEEEEE");
                 console.log("Succeffully created user and stored something");
+                navigate('/user');
               } catch (e) {
                 console.error("Error adding document: ", e);
               }

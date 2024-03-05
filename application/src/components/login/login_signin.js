@@ -11,6 +11,7 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import firebaseConfig from "../../firebase/firebaseConfig";
 import { signInWithEmailAndPassword, onAuthStateChanged, signOut } from 'firebase/auth';
+import { useNavigate } from 'react-router-dom';
 
 
 function SignIn() {
@@ -18,6 +19,7 @@ function SignIn() {
     const [email, setEmail] = React.useState('');
     const [password, setPassword] = React.useState('');
     const [authUser, setAuthUser] = React.useState(null);
+    const navigate = useNavigate();
 
     //check if user is logged in or not 
     React.useEffect (() => {    
@@ -43,6 +45,7 @@ function SignIn() {
             console.log(user);
             console.log("WE IN");
             // ...
+            navigate('/user');
           }
           ).catch((error) => {
             const errorCode = error.code;
@@ -133,6 +136,7 @@ function SignIn() {
         {authUser ? 
         <> 
             {authUser.uid} "User is logged in" <Button onClick={signOut}>Sign Out</Button>
+            {navigate('/user')}
         </>:    
             "User is not logged in"
     }
