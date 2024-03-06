@@ -44,7 +44,11 @@ function SignUp() {
 
     const [isEmailValid, setIsEmailValid] = useState(false);
     const [isEmailEmpty, setIsEmailEmpty] = useState(true);
-    const [errorHelperText, setHelperText] = useState("");
+    const [emailErrorText, setEmailErrorText] = useState("");
+
+    const [isPasswordValid, setIsPasswordValid] = useState(false);
+    const [isPasswordEmpty, setIsPasswordEmpty] = useState(true);
+    const [passwordErrorText, setPasswordErrorText] = useState("");
 
     function checkEmailValidity(email) {
         const emailValidity = String(email)
@@ -54,12 +58,34 @@ function SignUp() {
         );
 
         setIsEmailValid(emailValidity)
-        setHelperText(emailValidity ? "" : "Invalid email address")
+        setEmailErrorText(emailValidity ? "" : "Invalid email address")
     }
 
     function checkEmailEmpty(email) {
         setIsEmailEmpty(email.length == 0);
-        if (email.length == 0) { setHelperText("") }
+        if (email.length == 0) { setEmailErrorText("") }
+    }
+
+    function checkPasswordValidity(password) {
+        const passwordLength = password.length >= 8;
+        if (!passwordLength) { 
+            setIsPasswordValid(false);
+            setPasswordErrorText("Password must be at least 8 characters long") 
+            return
+        }
+
+        const passwordValidity = String(password)
+        .match(
+            /(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*\W)/
+        )
+
+        setIsPasswordValid(passwordValidity)
+        setPasswordErrorText(passwordValidity ? "" : "Password should contain at least one digit, uppercase, lowercase, and symbol character.")
+    }
+
+    function checkPasswordEmpty(password) {
+        setIsPasswordEmpty(password.length == 0);
+        if (password.length == 0) { setPasswordErrorText("") }
     }
     
       return (
@@ -117,7 +143,7 @@ function SignUp() {
                     required
                     fullWidth
                     error={!isEmailValid && !isEmailEmpty}
-                    helperText={errorHelperText}
+                    helperText={emailErrorText}
                     id="email"
                     label="Email Address"
                     name="email"
@@ -130,13 +156,15 @@ function SignUp() {
                 <TextField
                     required
                     fullWidth
+                    error={!isPasswordValid && !isPasswordEmpty}
+                    helperText={passwordErrorText}
                     name="password"
                     label="Password"
                     type="password"
                     id="password"
                     autoComplete="new-password"
                     value = {password}
-                    onChange = {(e) => setPassword(e.target.value)}
+                    onChange = {(e) => { setPassword(e.target.value); checkPasswordValidity(e.target.value); checkPasswordEmpty(e.target.value) }}
                 />
                 </Grid>
             </Grid>
