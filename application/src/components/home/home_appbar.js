@@ -7,55 +7,44 @@ import { ReactComponent as EyeLogo } from '../../assets/eye_logo.svg';
 import { Link } from 'react-router-dom';
 
 function HomeAppBar() {
-    const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
+  const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
 
-    //Detect screen size for responsive layout
-    useEffect(() => {
-        const handleResize = () => {
-          setIsMobile(window.innerWidth < 768);
-        }
-        window.addEventListener('resize', handleResize);
-        return () => window.removeEventListener('resize', handleResize);
-      }, []);
+  // Detect screen size for responsive layout
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
 
-    return (
-    <AppBar position="static" style={{ background: "#C8C8C8", display: "flex", flexDirection: "row" }}>
-        <Container maxWidth="m" sx={{ marginLeft: { md: "4em", xl: '8em' } }}>
-            <Link to="/" style={{ height: "4em", width: "12em", display: "flex", alignItems: "center", justifyContent: "center", gap: "0.5em", textDecoration: "none"}}>
-                <SvgIcon component={EyeLogo} fontSize={"large"} inheritViewBox />
-                <Typography
-                    variant="h6"
-                    noWrap
-                    sx={{
-                        fontFamily: 'monospace',
-                        fontWeight: 700,
-                        color: 'black'
-                    }}
-                >
-                SightBytes
-                </Typography>
+  return (
+    <AppBar position="static" sx={{ background: '#F5FEFD', boxShadow: '0px 4px 8px rgba(0, 0, 0, 0.2)', height: '64px', display: 'flex' }}>
+      <Container maxWidth="false" sx={{ display: 'flex', flexGrow: 1, justifyContent: 'space-between', alignItems: 'center' }}> {/* Container styles */}
+        <Link to="/" style={{ height: "auto", display: "flex", alignItems: "center", justifyContent: "center", gap: "0.5em", textDecoration: "none" }}>
+          <SvgIcon component={EyeLogo} fontSize={"large"} inheritViewBox />
+          <Typography variant="h5" noWrap sx={{ fontFamily: 'garamond', fontWeight: 700, color: 'black', fontSize: '1.5rem' }}>
+            SightBytes
+          </Typography>
+        </Link>
+        {!isMobile && (
+          <Container maxWidth="false" sx={{ display: 'flex', justifyContent: 'flex-end', alignItems: 'center' }}> {/* Buttons container */}
+            <Button size="large" sx={{ fontFamily: 'garamond', fontWeight: "bold", color: "black", marginRight: '0.5em' }}>
+              About
+            </Button>
+            <Button size="large" sx={{ fontFamily: 'garamond', fontWeight: "bold", color: "black", marginRight: '0.5em' }}>
+              Contact
+            </Button>
+            <Link to="/login" style={{ textDecoration: "none" }}>
+              <Button size="large" sx={{ fontFamily: 'garamond', fontWeight: "bold" }} variant="contained">
+                Login
+              </Button>
             </Link>
-        </Container>
-        <Container maxWidth="m" sx={{ display: "flex", alignItems: "center", justifyContent: "end", marginRight: { md: "4em", xl: '8em' } }}>
-            <Toolbar disableGutters sx={{ display: "flex", justifyContent: "space-between",  alignItems: "center", columnGap: "2em" }}>
-                {!isMobile && (<Link to="/" style={{ textDecoration: "none" }}>
-                    <Button size="large" style={{ fontFamily: "helvetica", fontWeight: "bold", color: "black" }}>
-                        About
-                    </Button>
-                </Link>)}
-                {!isMobile && (<Link to="/" style={{ textDecoration: "none" }}>
-                    <Button size="large" style={{ fontFamily: "helvetica", fontWeight: "bold", color: "black" }}>
-                        Contact Us
-                    </Button>
-                </Link>)}
-                <Link to="/login" style={{ textDecoration: "none" }}>
-                    <Button size="large" style={{ fontFamily: "helvetica", fontWeight: "bold" }} variant="contained">
-                        Login
-                    </Button>
-                </Link>
-            </Toolbar>
-        </Container>
+          </Container>
+        )}
+      </Container>
     </AppBar>
-    );
+  );
 }
+
 export default HomeAppBar;
