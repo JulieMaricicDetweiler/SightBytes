@@ -30,7 +30,7 @@ function SignUp() {
                 const ref = doc(firebaseConfig.firestore, "users", result.user.uid);
                 const docRef = await setDoc(ref, { email, firstName, lastName });
                 // alert("YEEEEE");
-                console.log("Succeffully created user and stored something");
+                console.log("Successfully created user and stored something");
                 navigate('/user');
               } catch (e) {
                 console.error("Error adding document: ", e);
@@ -128,13 +128,9 @@ function SignUp() {
             >
                 Sign Up
             </Button>
-            <Grid container justifyContent="flex-end">
-                <Grid item>
-                <Link href="/login" variant="body2">
-                    Already have an account? Sign in
-                </Link>
-                </Grid>
-            </Grid>
+            <Link href="/login" variant="body2">
+                {"Already have an account? Sign in"}
+            </Link>
             </Box>
         </Box>
         </Container>
