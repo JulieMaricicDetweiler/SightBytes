@@ -1,13 +1,27 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import AppBar from '@mui/material/AppBar';
 import Container from '@mui/material/Container';
 import Button from '@mui/material/Button';
 import { Toolbar, Typography, SvgIcon } from '@mui/material';
 import { ReactComponent as EyeLogo } from '../../assets/eye_logo.svg';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { AuthContext } from '../authContext/authContext';
+import firebaseConfig from "../../firebase/firebaseConfig";
+import { signInWithEmailAndPassword, onAuthStateChanged, signOut } from 'firebase/auth';
 
 function HomeAppBar() {
     const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
+    const { currentUser } = useContext(AuthContext);
+    const navigate = useNavigate();
+
+    const signOut = () => {
+        firebaseConfig.auth.signOut(firebaseConfig.auth).then(() => {
+          console.log("Sign out successful");
+          navigate('/login');
+        }).catch((error) => {
+          console.log("Error signing out");
+        });
+    }
 
     //Detect screen size for responsive layout
     useEffect(() => {
@@ -48,11 +62,20 @@ function HomeAppBar() {
                         Contact Us
                     </Button>
                 </Link>)}
-                <Link to="/login" style={{ textDecoration: "none" }}>
-                    <Button size="large" style={{ fontFamily: "helvetica", fontWeight: "bold" }} variant="contained">
-                        Login
-                    </Button>
-                </Link>
+                
+                {currentUser ? 
+                    <Link to="/login" style={{ textDecoration: "none" }}>
+                        <Button onClick={signOut} size="large" style={{ fontFamily: "helvetica", fontWeight: "bold" }} variant="contained">
+                            Sign Out
+                        </Button>
+                    </Link>
+                :
+                    <Link to="/login" style={{ textDecoration: "none" }}>
+                        <Button size="large" style={{ fontFamily: "helvetica", fontWeight: "bold" }} variant="contained">
+                            Login
+                        </Button>
+                    </Link>
+                }
             </Toolbar>
         </Container>
     </AppBar>

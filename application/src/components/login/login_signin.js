@@ -19,6 +19,7 @@ function SignIn() {
     const [email, setEmail] = React.useState('');
     const [password, setPassword] = React.useState('');
     const [authUser, setAuthUser] = React.useState(null);
+    const [loginFailed, setLoginFailed] = React.useState(false);
     const navigate = useNavigate();
 
     //check if user is logged in or not 
@@ -50,12 +51,12 @@ function SignIn() {
           ).catch((error) => {
             const errorCode = error.code;
             const errorMessage = error.message;
+            setLoginFailed(true);
             console.log(errorCode);
             console.log(errorMessage);
         });
       };
       
-    
       const signOut = () => {
         firebaseConfig.auth.signOut(firebaseConfig.auth).then(() => {
           console.log("Sign out successful");
@@ -90,6 +91,17 @@ function SignIn() {
         >
         Sign in
         </Typography>
+
+        {loginFailed && <Typography
+        variant='p'
+            sx={{
+                color: 'red'
+            }}
+        >
+            Username or password invalid
+        </Typography>
+        }
+
         <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
         <TextField
             margin="normal"
@@ -132,16 +144,6 @@ function SignIn() {
         </Link>
         </Box>
     </Box>
-    <Typography>
-        {authUser ? 
-        <> 
-            {authUser.uid} "User is logged in" <Button onClick={signOut}>Sign Out</Button>
-            {navigate('/user')}
-        </>:    
-            "User is not logged in"
-    }
-        
-    </Typography>
     </Container>
   
     );
