@@ -95,7 +95,9 @@ function SignIn() {
         {loginFailed && <Typography
         variant='p'
             sx={{
-                color: 'red'
+                color: 'red',
+                float: 'left',
+                paddingTop: 3
             }}
         >
             Username or password invalid

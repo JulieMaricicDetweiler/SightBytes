@@ -1,4 +1,4 @@
-import DefaultAppBar from '../../components/shared/appbar';
+import DefaultAppBar from '../../components/navbar/appbar';
 import SignUp from '../../components/signup/signup';
 
 const Signup = () => {

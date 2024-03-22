@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { getDatabase, ref, set, update, onValue, get } from 'firebase/database';
 import axios from 'axios';
 import './test.css';
-import DefaultAppBar from '../../components/shared/appbar';
+import DefaultAppBar from '../../components/navbar/appbar';
 import HorizontalLinearStepper from '../../components/test/horizontal_stepper';
 
 const Test = () => {
