@@ -7,7 +7,7 @@ import { ReactComponent as EyeLogo } from '../../assets/eye_logo.svg';
 import { Link, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../authContext/authContext';
 import firebaseConfig from "../../firebase/firebaseConfig";
-import { signInWithEmailAndPassword, onAuthStateChanged, signOut } from 'firebase/auth';
+import { BsPersonCircle as UserIcon } from 'react-icons/bs';
 
 function HomeAppBar() {
     const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
@@ -50,7 +50,7 @@ function HomeAppBar() {
                 </Typography>
             </Link>
         </Container>
-        <Container maxWidth="m" sx={{ display: "flex", alignItems: "center", justifyContent: "end", marginRight: { md: "4em", xl: '8em' } }}>
+        <Container maxWidth="m" sx={{ display: "flex", alignItems: "center", justifyContent: "end"}}>
             <Toolbar disableGutters sx={{ display: "flex", justifyContent: "space-between",  alignItems: "center", columnGap: "2em" }}>
                 {!isMobile && (
                 <Link to="/about" style={{ textDecoration: "none" }}>
@@ -58,18 +58,24 @@ function HomeAppBar() {
                         About
                     </Button>
                 </Link>)}
-                {!isMobile && (<Link to="/" style={{ textDecoration: "none" }}>
+                {!isMobile && 
+                (<Link to="/contact" style={{ textDecoration: "none" }}>
                     <Button size="large" style={{ fontFamily: "helvetica", fontWeight: "bold", color: "black" }}>
                         Contact Us
                     </Button>
                 </Link>)}
                 
                 {currentUser ? 
+                    <>
                     <Link to="/login" style={{ textDecoration: "none" }}>
                         <Button onClick={signOut} size="large" style={{ fontFamily: "helvetica", fontWeight: "bold" }} variant="contained">
                             Sign Out
                         </Button>
                     </Link>
+                    <Link to="/user">
+                        <UserIcon size={40} color='black' paddingLeft={15}/>
+                    </Link>
+                    </>
                 :
                     <Link to="/login" style={{ textDecoration: "none" }}>
                         <Button size="large" style={{ fontFamily: "helvetica", fontWeight: "bold" }} variant="contained">
