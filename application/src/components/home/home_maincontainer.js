@@ -47,7 +47,7 @@ function HomeContainer() {
             />
         </Link>
 
-        <Link to="/" style={{ textDecoration: "none" }}>
+        <Link to="/" style={{ textDecoration: "none", paddingBottom: 40 }}>
             <Chip 
             label="Learn more" 
             style={{ backgroundColor:'#86c5da' }}

@@ -1,14 +1,14 @@
 import HomeAppBar from '../../components/navbar/home_appbar';
-import HomeContainer from '../../components/home/home_maincontainer';
+import AboutContainer from '../../components/about/about_container';
 
-const Home = () => {
+const About = () => {
 
     return (
         <div>
             <HomeAppBar/>
-            <HomeContainer/>
+            <AboutContainer/>
         </div>
     );
 }
 
-export default Home;
+export default About;

@@ -1,5 +1,5 @@
 //import UserAppBar from '../../components/home/home_userbar';
-import HomeAppBar from '../../components/home/home_appbar';
+import HomeAppBar from '../../components/navbar/home_appbar';
 import User from '../../components/user/profile';
 
 const Profile = () => {
