@@ -1,45 +1,63 @@
 import * as React from 'react';
 import Button from '@mui/material/Button';
 import firebaseConfig from "../../firebase/firebaseConfig";
-import { signInWithEmailAndPassword, onAuthStateChanged, signOut } from 'firebase/auth';
-import { addDoc, collection, doc, setDoc } from "firebase/firestore";
-import { useNavigate } from 'react-router-dom';
+import { doc, getDoc } from "firebase/firestore";
+import { AuthContext } from '../authContext/authContext';
+import { Typography, Chip, Container } from '@mui/material';
+import { Link, useNavigate } from 'react-router-dom';
 
 
 const Profile = () => {
     const [authUser, setAuthUser] = React.useState(null);
-    const navigate = useNavigate();
+    const [name, setFirstName] = React.useState('');
+    const {currentUser} = React.useContext(AuthContext);
 
     React.useEffect(() => {
-        const unsubscribe = onAuthStateChanged(firebaseConfig.auth, (user) => {
-            if (user) {
-                setAuthUser(user);
-            } else {
-                setAuthUser(null);
-            }
-        });
-        return unsubscribe; // Unsubscribe when component unmounts
-    }, []);
-
-
-    const signOut = () => {
-        firebaseConfig.auth.signOut(firebaseConfig.auth).then(() => {
-          console.log("Sign out successful");
-          setAuthUser(null);
-          navigate('/login');
-        }).catch((error) => {
-          console.log("Error signing out");
-        });
-      }
+        const fetchUserData = async () => {
+          if (currentUser) {
+            const userDoc = doc(firebaseConfig.firestore, "users", currentUser.uid);
+            getDoc(userDoc)
+            .then((doc) => {
+                console.log(doc.data());
+                setFirstName(doc.data().firstName);
+            })
+          }
+        };
+    
+        fetchUserData();
+      }, [currentUser]);
 
     return (
         <div>
-            {authUser ? 
-                <> 
-                    {authUser.uid} "User is logged in" HAHA This is my profile.
-        
-                </>:    
-                    "User is not logged in"
+            {currentUser ? 
+                <>
+                    <Typography 
+                        variant='h3' 
+                        fontFamily={'helvetica'}
+                        textAlign={'center'}
+                        paddingTop={15}
+                        lineHeight={3}
+                    >
+                        <Typography variant='h4'>
+                            Hi, {name} <br/>
+                        </Typography>
+                        Welcome to SightBytes
+                    </Typography>    
+                </>:
+
+                <>
+                <Container maxWidth="xl" sx={{ display: "flex", flexDirection: "column", alignItems: "center", gap: "2em", marginTop: "5vw"}}>
+
+                    <Typography variant='h4' paddingTop={15} paddingBottom={4}>
+                        Oops! Looks like you aren't logged in
+                    </Typography>
+                    <Link to='/login' style={{ textDecoration: "none" }}>
+                        <Button size="large" style={{ fontFamily: "helvetica", fontWeight: "bold" }} variant="contained">
+                            Log in
+                        </Button>
+                    </Link>
+                </Container>
+                </> 
             }
         </div>
     );
