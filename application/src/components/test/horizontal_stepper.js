@@ -12,6 +12,7 @@ import StepConnector, { stepConnectorClasses } from '@mui/material/StepConnector
 import Terms_And_Conditions_Step from './tc_step';
 import Brightness_Step from './brightness_step';
 import Test_Step from './test_step';
+import Calibration_Step from './calibration_step';
 
 
 const QontoConnector = styled(StepConnector)(({ theme }) => ({
@@ -97,7 +98,7 @@ function HorizontalLinearStepper() {
     const steps = [
         <Terms_And_Conditions_Step/>, 
         <Brightness_Step/>, 
-        'Calibrate Screen', 
+        <Calibration_Step/>, 
         <Test_Step key="test" onTestCompletion={handleTestCompletion} onSessionIdChange={handleSessionIdChange}/>];
     const [activeStep, setActiveStep] = React.useState(0);
 
