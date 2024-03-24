@@ -8,6 +8,7 @@ import Signup from "./pages/signup"
 import User from "./pages/user"
 import About from "./pages/about"
 import Contact from "./pages/contact"
+import Distance from './components/distance/distance';
 
 
 function App() {
@@ -21,6 +22,7 @@ function App() {
         <Route path="/user" element={<User/>} />
         <Route path="/about" element={<About/>} />
         <Route path="/contact" element={<Contact />} />
+        <Route path="/distance" element={<Distance />} />
       </Routes>
     </Router>
   );

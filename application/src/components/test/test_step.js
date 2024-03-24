@@ -90,7 +90,7 @@ const Test_Step = ({ onTestCompletion, onSessionIdChange }) => {
     const createSession = async() => {
       console.log('Attempting to create a session');
       try {
-        const response = await axios.post('http://localhost:80/create-session');
+        const response = await axios.post('http://localhost:8000/create-session');
         const newSessionId = response.data.session_id; // Assuming this is how your session ID is returned
         setSessionId(newSessionId); // Set session ID in state
         await postSessionToFirebase(newSessionId);
