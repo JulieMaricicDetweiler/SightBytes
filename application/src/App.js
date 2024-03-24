@@ -9,10 +9,16 @@ import User from "./pages/user"
 import About from "./pages/about"
 import Contact from "./pages/contact"
 
+// OUR NAVBAR
+import Navbar from './components/navbar'
+
 
 function App() {
+
   return (
     <Router>
+      <Navbar/>
+      
       <Routes>
         <Route path="/" element={<Home/>} />
         <Route path="/test" element={<Test/>} />
@@ -20,7 +26,7 @@ function App() {
         <Route path="/signup" element={<Signup/>} />
         <Route path="/user" element={<User/>} />
         <Route path="/about" element={<About/>} />
-        <Route path="/contact" element={<Contact />} />
+        <Route path="/contact" element={<Contact/>} />
       </Routes>
     </Router>
   );

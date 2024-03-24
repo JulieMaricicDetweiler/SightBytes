@@ -1,14 +1,12 @@
-import HomeAppBar from '../../components/navbar/home_appbar';
-import AboutContainer from '../../components/about/about_container';
+import HomeAbout from '../../components/home/home_about';
 
 const About = () => {
 
-    return (
-        <div>
-            <HomeAppBar/>
-            <AboutContainer/>
-        </div>
-    );
+  return (
+      <div>
+          <HomeAbout/>
+      </div>
+  );
 }
 
 export default About;
