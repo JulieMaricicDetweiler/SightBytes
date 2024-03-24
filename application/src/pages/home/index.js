@@ -52,7 +52,7 @@ const Home = () => {
             sx={{
               fontFamily: 'garamond',
               marginBottom: '2em',
-              textAlign: 'center',
+              textAlign: 'left',
             }}
           >
             There are a number of extensive eye exams to fully assess eye health, many of which require physical examination of the eye through the use of advanced tools. In other words, there is a significant distinction to be drawn between an “eye exam” and a “vision exam.” Our product will be the latter. Users will be able to create an account in order to monitor the changes in their vision over time. We intend for our application to be used as a proxy for determining when it may be time to invest in receiving a full examination. We hope that this may save users at least a bit of cost when it comes to coarsely assessing visual acuity and potential deterioration.
