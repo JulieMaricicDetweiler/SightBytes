@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, { useState, useEffect } from 'react';
 import Box from '@mui/material/Box';
 import Chip from '@mui/material/Chip';
 import Stepper from '@mui/material/Stepper';
@@ -11,6 +11,8 @@ import { styled } from '@mui/material/styles';
 import StepConnector, { stepConnectorClasses } from '@mui/material/StepConnector';
 import Terms_And_Conditions_Step from './tc_step';
 import Brightness_Step from './brightness_step';
+import Test_Step from './test_step';
+import Calibration_Step from './calibration_step';
 
 
 const QontoConnector = styled(StepConnector)(({ theme }) => ({
@@ -78,10 +80,35 @@ QontoStepIcon.propTypes = {
 
 
 function HorizontalLinearStepper() {
-    const steps = [<Terms_And_Conditions_Step/>, <Brightness_Step/>, 'more stuff', "blah"];
+    // Var for checking if the test has been completed
+    const [isTestCompleted, setIsTestCompleted] = useState(false);
+    const [sessionId, setSessionId] = useState("");
+
+
+    // Callback function for test completion
+    const handleTestCompletion = React.useCallback((completed) => {
+        setIsTestCompleted(completed);
+    }, []);
+
+    // Callback function for session id
+    const handleSessionIdChange = React.useCallback((sessionId) => {
+        setSessionId(sessionId);
+    }, []);
+
+    const steps = [
+        <Terms_And_Conditions_Step/>, 
+        <Brightness_Step/>, 
+        <Calibration_Step/>, 
+        <Test_Step key="test" onTestCompletion={handleTestCompletion} onSessionIdChange={handleSessionIdChange}/>];
     const [activeStep, setActiveStep] = React.useState(0);
 
+    const isTestStep = activeStep ===3;
+
     const handleNext = () => {
+        if (isTestStep && !isTestCompleted) {
+            alert("Please complete the test before continuing.");
+            return;
+        }
         setActiveStep((prevActiveStep) => prevActiveStep + 1);
     };
 
@@ -106,22 +133,24 @@ function HorizontalLinearStepper() {
             {steps.at(activeStep)}
             <Box sx={{ display: 'flex', flexDirection: 'row', justifyContent: 'center', alignContent: 'center' }}>
                 <Chip 
-                onClick={handleNext}
-                label="Continue" 
-                color="primary" 
-                clickable 
-                sx={{ 
-                    fontFamily: 'helvetica',
-                    fontWeight: 500,
-                    fontSize: { xs: 16, sm: 19, md: 22 },
-                    padding: { xs: 1, sm: 2, md: 3 },
-                    "& .MuiChip-label": {
-                        paddingLeft: { xs: 2, sm: 4, md: 6 },
-                        paddingRight: { xs: 2, sm: 4, md: 6 }
-                    },
-                    marginTop: 4,
-                    marginBottom: 4
-                }}
+                    onClick={handleNext}
+                    label="Continue" 
+                    color="primary" 
+                    clickable 
+                    sx={{ 
+                        fontFamily: 'helvetica',
+                        fontWeight: 500,
+                        fontSize: { xs: 16, sm: 19, md: 22 },
+                        padding: { xs: 1, sm: 2, md: 3 },
+                        "& .MuiChip-label": {
+                            paddingLeft: { xs: 2, sm: 4, md: 6 },
+                            paddingRight: { xs: 2, sm: 4, md: 6 }
+                        },
+                        marginTop: 4,
+                        marginBottom: 4,
+                        backgroundColor: "#1c4aa6",
+                        borderRadius: 0
+                    }}
                 />
             </Box>
             </React.Fragment>
