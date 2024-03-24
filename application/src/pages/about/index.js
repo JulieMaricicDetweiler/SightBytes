@@ -4,7 +4,7 @@ import { Typography } from '@mui/material';
 
 function About() {
   return (
-    <Container maxWidth="xl" sx={{ display: "flex", flexDirection: "column", alignItems: "center", gap: "1em", marginTop: "5vw" }}>
+    <Container maxWidth="xl" sx={{ width: '70%', display: "flex", flexDirection: "column", alignItems: "center", gap: "1em", marginTop: "5vw" }}>
       <div style={{ display: 'flex', width: '100%' }}>
         <Typography
           noWrap

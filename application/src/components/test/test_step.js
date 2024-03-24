@@ -143,7 +143,7 @@ const Test_Step = ({ onTestCompletion, onSessionIdChange }) => {
                     <Typography variant="h5" sx={{ mb: 3, textAlign: 'center' }}>
                     Please create a session.
                     </Typography>
-                    <Button variant="contained" color="primary" onClick={createSession}>
+                    <Button variant="contained" color="primary" onClick={createSession} sx={{backgroundColor: "#1c4aa6", borderRadius: 0}}>
                     Create Session
                     </Button>
                 </Box>

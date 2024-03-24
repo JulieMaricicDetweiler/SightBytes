@@ -5,7 +5,7 @@ import { Typography } from '@mui/material';
 const Contact = () => {
 
   return (
-    <Container maxWidth="xl" sx={{ display: "flex", flexDirection: "column", alignItems: "flex-start", gap: "1em", marginTop: "5vw" }}>  {/* Changed alignItems to 'flex-start' for left alignment */}
+    <Container maxWidth="xl" sx={{ width: '70%', display: "flex", flexDirection: "column", alignItems: "flex-start", gap: "1em", marginTop: "5vw" }}>  {/* Changed alignItems to 'flex-start' for left alignment */}
       <div style={{ display: 'flex', width: '100%' }}>
         <Typography
           noWrap

@@ -137,7 +137,7 @@ function Login() {
             type="submit"
             fullWidth
             variant="contained"
-            sx={{ mt: 3, mb: 2, fontFamily: "helvetica" }}
+            sx={{ mt: 3, mb: 2, fontFamily: "helvetica", backgroundColor: "#1c4aa6", borderRadius: 0}}
         >
             Sign In
         </Button>

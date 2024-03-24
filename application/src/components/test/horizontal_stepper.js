@@ -147,7 +147,9 @@ function HorizontalLinearStepper() {
                             paddingRight: { xs: 2, sm: 4, md: 6 }
                         },
                         marginTop: 4,
-                        marginBottom: 4
+                        marginBottom: 4,
+                        backgroundColor: "#1c4aa6",
+                        borderRadius: 0
                     }}
                 />
             </Box>
