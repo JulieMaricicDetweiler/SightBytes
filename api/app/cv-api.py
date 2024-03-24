@@ -32,7 +32,8 @@ async def calculate_distance(request: DistanceRequest):
     detector = FaceMeshDetector(maxFaces=2)
     
     print(request.image_base64)
-    image_data = base64.b64decode(request.image_base64)
+    temp = request.image_base64.split(",")[-1]
+    image_data = base64.b64decode(temp)
     print("Converting...")
     
     nparr = np.frombuffer(image_data, np.uint8)
