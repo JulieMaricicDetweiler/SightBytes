@@ -19,13 +19,13 @@ function SignUp() {
     const [firstName, setFirstName] = React.useState('');
     const [lastName, setLastName] = React.useState('');
 
-    const [isEmailValid, setIsEmailValid] = useState(false);
-    const [isEmailEmpty, setIsEmailEmpty] = useState(true);
-    const [emailErrorText, setEmailErrorText] = useState("");
+    const [isEmailValid, setIsEmailValid] = React.useState(false);
+    const [isEmailEmpty, setIsEmailEmpty] = React.useState(true);
+    const [emailErrorText, setEmailErrorText] = React.useState("");
 
-    const [isPasswordValid, setIsPasswordValid] = useState(false);
-    const [isPasswordEmpty, setIsPasswordEmpty] = useState(true);
-    const [passwordErrorText, setPasswordErrorText] = useState("");
+    const [isPasswordValid, setIsPasswordValid] = React.useState(false);
+    const [isPasswordEmpty, setIsPasswordEmpty] = React.useState(true);
+    const [passwordErrorText, setPasswordErrorText] = React.useState("");
     const navigate = useNavigate();
 
     function checkEmailValidity(email) {
