@@ -18,8 +18,53 @@ function SignUp() {
     const [password, setPassword] = React.useState('');
     const [firstName, setFirstName] = React.useState('');
     const [lastName, setLastName] = React.useState('');
+
+    const [isEmailValid, setIsEmailValid] = React.useState(false);
+    const [isEmailEmpty, setIsEmailEmpty] = React.useState(true);
+    const [emailErrorText, setEmailErrorText] = React.useState("");
+
+    const [isPasswordValid, setIsPasswordValid] = React.useState(false);
+    const [isPasswordEmpty, setIsPasswordEmpty] = React.useState(true);
+    const [passwordErrorText, setPasswordErrorText] = React.useState("");
     const navigate = useNavigate();
 
+    function checkEmailValidity(email) {
+        const emailValidity = String(email)
+        .toLowerCase()
+        .match(
+        /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|.(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+        );
+
+        setIsEmailValid(emailValidity)
+        setEmailErrorText(emailValidity ? "" : "Invalid email address")
+    }
+
+    function checkEmailEmpty(email) {
+        setIsEmailEmpty(email.length == 0);
+        if (email.length == 0) { setEmailErrorText("") }
+    }
+
+    function checkPasswordValidity(password) {
+        const passwordLength = password.length >= 8;
+        if (!passwordLength) { 
+            setIsPasswordValid(false);
+            setPasswordErrorText("Password must be at least 8 characters long") 
+            return
+        }
+
+        const passwordValidity = String(password)
+        .match(
+            /(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*\W)/
+        )
+
+        setIsPasswordValid(passwordValidity)
+        setPasswordErrorText(passwordValidity ? "" : "Password should contain at least one digit, uppercase, lowercase, and symbol character.")
+    }
+
+    function checkPasswordEmpty(password) {
+        setIsPasswordEmpty(password.length == 0);
+        if (password.length == 0) { setPasswordErrorText("") }
+    }
 
     const handleSubmit = (event) => {
         event.preventDefault();
@@ -67,7 +112,7 @@ function SignUp() {
             >
             Sign up
             </Typography>
-            <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
+            <Box component="form" onSubmit={handleSubmit} sx={{ mt: 3 }}>
             <Grid container spacing={2}>
                 <Grid item xs={12} sm={6}>
                 <TextField
@@ -98,25 +143,29 @@ function SignUp() {
                 <TextField
                     required
                     fullWidth
+                    error={!isEmailValid && !isEmailEmpty}
+                    helperText={emailErrorText}
                     id="email"
                     label="Email Address"
                     name="email"
                     autoComplete="email"
                     value = {email}
-                    onChange = {(e) => setEmail(e.target.value)}
+                    onChange = {(e) => { setEmail(e.target.value); checkEmailValidity(e.target.value); checkEmailEmpty(e.target.value) }}
                 />
                 </Grid>
                 <Grid item xs={12}>
                 <TextField
                     required
                     fullWidth
+                    error={!isPasswordValid && !isPasswordEmpty}
+                    helperText={passwordErrorText}
                     name="password"
                     label="Password"
                     type="password"
                     id="password"
                     autoComplete="new-password"
                     value = {password}
-                    onChange = {(e) => setPassword(e.target.value)}
+                    onChange = {(e) => { setPassword(e.target.value); checkPasswordValidity(e.target.value); checkPasswordEmpty(e.target.value) }}
                 />
                 </Grid>
             </Grid>
