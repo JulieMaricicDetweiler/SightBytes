@@ -3,7 +3,6 @@ import { getDatabase, ref, set, update, onValue, get } from 'firebase/database';
 import axios from 'axios';
 import './test.css';
 import { Container, TextField, Button, Typography, Box } from '@mui/material';
-import DefaultAppBar from '../../components/navbar/appbar';
 import HorizontalLinearStepper from '../../components/test/horizontal_stepper';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle'; 
 
@@ -152,7 +151,6 @@ const Test = () => {
       
   return (
       <div className="test-page-container">
-          <DefaultAppBar/>
 
           {!isMobile && !sessionId && (
             <HorizontalLinearStepper/>

@@ -1,14 +1,12 @@
-import HomeAppBar from '../../components/navbar/home_appbar';
-import ContactContainer from '../../components/contact/contact_container';
+import HomeContact from '../../components/home/home_contact';
 
 const Contact = () => {
 
-    return (
-        <div>
-            <HomeAppBar/>
-            <ContactContainer/>
-        </div>
-    );
+  return (
+      <div>
+          <HomeContact/>
+      </div>
+  );
 }
 
 export default Contact;
