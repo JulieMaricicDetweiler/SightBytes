@@ -9,7 +9,6 @@ import { Link } from 'react-router-dom';
 function HomeAppBar() {
   const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
 
-  // Detect screen size for responsive layout
   useEffect(() => {
     const handleResize = () => {
       setIsMobile(window.innerWidth < 768);
@@ -20,7 +19,7 @@ function HomeAppBar() {
 
   return (
     <AppBar position="static" sx={{ background: '#F5FEFD', boxShadow: '0px 4px 8px rgba(0, 0, 0, 0.2)', height: '64px', display: 'flex' }}>
-      <Container maxWidth="false" sx={{ display: 'flex', flexGrow: 1, justifyContent: 'space-between', alignItems: 'center' }}> {/* Container styles */}
+      <Container maxWidth="false" sx={{ display: 'flex', flexGrow: 1, justifyContent: 'space-between', alignItems: 'center' }}>
         <Link to="/" style={{ height: "auto", display: "flex", alignItems: "center", justifyContent: "center", gap: "0.5em", textDecoration: "none" }}>
           <SvgIcon component={EyeLogo} fontSize={"large"} inheritViewBox />
           <Typography variant="h5" noWrap sx={{ fontFamily: 'garamond', fontWeight: 700, color: 'black', fontSize: '1.5rem' }}>
@@ -28,13 +27,17 @@ function HomeAppBar() {
           </Typography>
         </Link>
         {!isMobile && (
-          <Container maxWidth="false" sx={{ display: 'flex', justifyContent: 'flex-end', alignItems: 'center' }}> {/* Buttons container */}
-            <Button size="large" sx={{ fontFamily: 'garamond', fontWeight: "bold", color: "black", marginRight: '0.5em' }}>
-              About
-            </Button>
-            <Button size="large" sx={{ fontFamily: 'garamond', fontWeight: "bold", color: "black", marginRight: '0.5em' }}>
-              Contact
-            </Button>
+          <Container maxWidth="false" sx={{ display: 'flex', justifyContent: 'flex-end', alignItems: 'center' }}>
+            <Link to="/about" style={{ textDecoration: "none" }}>
+              <Button size="large" sx={{ fontFamily: 'garamond', fontWeight: "bold", color: "black", marginRight: '0.5em' }}>
+                About
+              </Button>
+            </Link>
+            <Link to="/contact" style={{ textDecoration: "none" }}>
+              <Button size="large" sx={{ fontFamily: 'garamond', fontWeight: "bold", color: "black", marginRight: '0.5em' }}>
+                Contact
+              </Button>
+            </Link>
             <Link to="/login" style={{ textDecoration: "none" }}>
               <Button size="large" sx={{ fontFamily: 'garamond', fontWeight: "bold" }} variant="contained">
                 Login
