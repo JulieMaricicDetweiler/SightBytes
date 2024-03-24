@@ -15,11 +15,13 @@ const Profile = () => {
     React.useEffect(() => {
         const fetchUserData = async () => {
           if (currentUser) {
+            console.log("hello");
             const userDoc = doc(firebaseConfig.firestore, "users", currentUser.uid);
             getDoc(userDoc)
             .then((doc) => {
                 console.log(doc.data());
                 setFirstName(doc.data().firstName);
+                console.log(name);
             })
           }
         };
