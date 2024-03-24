@@ -2,7 +2,7 @@ import React, { useState, useEffect, useContext } from 'react';
 import AppBar from '@mui/material/AppBar';
 import Container from '@mui/material/Container';
 import Button from '@mui/material/Button';
-import { Toolbar, Typography, SvgIcon } from '@mui/material';
+import { Toolbar, Typography, SvgIcon, hexToRgb } from '@mui/material';
 import { ReactComponent as EyeLogo } from '../../assets/eye_logo.svg';
 import { Link, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../authContext/authContext';
@@ -68,7 +68,7 @@ function Navbar() {
                         {currentUser ? 
                             <>
                             <Link to="/login" style={{ textDecoration: "none" }}>
-                                <Button onClick={signOut} size="large" style={{ fontFamily: "helvetica", fontWeight: "bold" }} variant="contained">
+                                <Button onClick={signOut} size="large" style={{ fontFamily: "helvetica", fontWeight: "bold", backgroundColor: hexToRgb("#1c4aa6"), borderRadius: 0 }} variant="contained">
                                     Sign Out
                                 </Button>
                             </Link>
@@ -78,7 +78,7 @@ function Navbar() {
                             </>
                         :
                             <Link to="/login" style={{ textDecoration: "none" }}>
-                                <Button size="large" style={{ fontFamily: "helvetica", fontWeight: "bold" }} variant="contained">
+                                <Button size="large" style={{ fontFamily: "helvetica", fontWeight: "bold", backgroundColor: hexToRgb("#1c4aa6"), borderRadius: 0 }} variant="contained">
                                     Login
                                 </Button>
                             </Link>
