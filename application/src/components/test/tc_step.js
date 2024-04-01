@@ -41,18 +41,11 @@ function Terms_And_Conditions_Step() {
                     typography: 'h6'
                 }}
             >
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
-            Mauris venenatis hendrerit felis, sit amet interdum lacus ornare non. 
-            Aliquam metus dolor, elementum sit amet ligula at, luctus consectetur elit. 
-            Morbi in malesuada neque. 
-            Fusce nisi nisl, sagittis eget ultricies in, condimentum at lorem. 
-            Fusce fringilla, diam id fermentum malesuada, risus nibh ullamcorper massa, sit amet blandit sapien justo id nisi. 
-            Vivamus in est in arcu vestibulum venenatis. 
-            Nulla vel ipsum in nisi lobortis sagittis quis vitae velit. 
-            Maecenas porttitor, mi at interdum imperdiet, odio libero pharetra tellus, iaculis tempus sapien velit vehicula odio. 
-            
-            Curabitur in neque sem. Etiam vel purus metus.
-
+            This vision test is intended to provide a cursory depiction of your vision at this time. 
+            It is not a substitute for a medical test performed by a trained eye care professional. 
+            Likewise, it is not intended to be used for diagnosing, treating, or preventing diseases. 
+            It is rather a supplementary tool for gauging your visual acuity at this time and allowing you to make a more informed decision regarding your eye care. 
+            SightBytes and all affiliating parties accept no liability or consequencies arising from the use of our application and/or the information provided.
             </Typography>
         </Box>
     </Container>
