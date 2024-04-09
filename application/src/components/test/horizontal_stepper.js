@@ -15,6 +15,7 @@ import Test_Step from './test_step';
 import Calibration_Step from './calibration_step';
 import { getDatabase, ref, get } from "firebase/database";
 import DetailedResults from './detailedResults';
+import { CircularProgress } from '@mui/material';
 
 const QontoConnector = styled(StepConnector)(({ theme }) => ({
     [`&.${stepConnectorClasses.alternativeLabel}`]: {
@@ -170,10 +171,23 @@ function HorizontalLinearStepper() {
         <Box sx={{ width: '100%' }}>
         {activeStep === steps.length ? (
             <React.Fragment>
-            <Box>
-                <Button onClick={handleScoreResults}>Get Results</Button>
-                {scoreResults && <DetailedResults scoringResult={scoreResults}/>}
-            </Box>
+                {loading && (
+                    <Box sx={{ display: 'flex', justifyContent: 'center' }}>
+                        <CircularProgress />
+                    </Box>
+                )}
+
+                {!loading && scoreResults && (
+                    <DetailedResults scoringResult={scoreResults} />
+                )}
+
+                {!loading && !scoreResults && (
+                    <Box sx={{ display: 'flex', justifyContent: 'center', marginTop: 2 }}>
+                        <Button variant="contained" color="primary" onClick={handleScoreResults}>
+                            Get Test Results
+                        </Button>
+                    </Box>
+                )}
             <Box sx={{ display: 'flex', flexDirection: 'row', pt: 2 }}>
                 <Box sx={{ flex: '1 1 auto' }} />
                 <Button onClick={handleReset}>Reset</Button>
