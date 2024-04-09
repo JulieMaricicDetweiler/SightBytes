@@ -12,6 +12,7 @@ import base64
 import io
 from imageio import imread
 import matplotlib.pyplot as plt
+from typing import List
 
 app = FastAPI()
 
@@ -22,6 +23,14 @@ app.add_middleware(
     allow_methods=["*"],  # Allow asll methods
     allow_headers=["*"],
 )
+
+class Question(BaseModel):
+    questionId: int
+    answer: str
+    letter: str
+
+class SessionData(BaseModel):
+    questions: List[Question]
 
 class DistanceRequest(BaseModel):
     image_base64: str
@@ -90,3 +99,20 @@ def create_session():
     # Generate a unique session ID
     session_id = str(uuid4())
     return {"session_id": session_id}
+
+@app.post("/score")
+async def score_session(data: SessionData):
+    totalQuestions = len(data.questions)
+    correctAnswers = sum(1 for q in data.questions if q.answer.upper() == q.letter.upper())
+    
+    # Example of building detailed results, adjust as needed
+    detailedResults = [
+        {"question": q.questionId, "answer": q.answer.upper(), "letter": q.letter.upper(), "correct": q.answer.upper() == q.letter.upper()}
+        for q in data.questions
+    ]
+    
+    return {
+        "totalQuestions": totalQuestions,
+        "correctAnswers": correctAnswers,
+        "questions": detailedResults
+    }
