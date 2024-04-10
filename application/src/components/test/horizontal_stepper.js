@@ -13,7 +13,9 @@ import Terms_And_Conditions_Step from './tc_step';
 import Brightness_Step from './brightness_step';
 import Test_Step from './test_step';
 import Calibration_Step from './calibration_step';
-
+import { getDatabase, ref, get } from "firebase/database";
+import DetailedResults from './detailedResults';
+import { CircularProgress } from '@mui/material';
 
 const QontoConnector = styled(StepConnector)(({ theme }) => ({
     [`&.${stepConnectorClasses.alternativeLabel}`]: {
@@ -83,6 +85,8 @@ function HorizontalLinearStepper() {
     // Var for checking if the test has been completed
     const [isTestCompleted, setIsTestCompleted] = useState(false);
     const [sessionId, setSessionId] = useState("");
+    const [loading, setLoading] = useState(false);
+    const [scoreResults, setScoreResults] = useState(null);
 
 
     // Callback function for test completion
@@ -116,13 +120,74 @@ function HorizontalLinearStepper() {
         setActiveStep(0);
     };
 
+    const fetchSessionData = async (sessionId) => {
+        const db = getDatabase();
+        const sessionRef = ref(db, `sessions/${sessionId}`);
+
+        try {
+            const snapshot = await get(sessionRef);
+            if (snapshot.exists()) {
+                console.log("Session data:", snapshot.val());
+                return snapshot.val();
+            } else {
+                console.log("No session data available");
+                throw new Error("No session data available");
+            }
+        } catch (error) {
+            console.error("Failed to fetch session data:", error);
+            throw error; // Rethrow the error so it can be caught by the caller
+        }
+    }
+
+    const handleScoreResults = async () => {
+        setLoading(true);
+
+        try {
+            const sessionData = await fetchSessionData(sessionId);
+            const scoreResponse = await fetch("http://localhost:80/score", {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(sessionData),
+            });
+
+            if (!scoreResponse.ok) {
+                throw new Error('Failed to fetch scoring result');
+            }
+
+            const scoreResult = await scoreResponse.json();
+            setScoreResults(scoreResult); // Set the scoring result state
+            console.log("score results: ", scoreResult)
+        } catch (error) {
+            console.error("Error: ", error);
+        } finally {
+            setLoading(false);
+        }
+
+    }
+
     return (
         <Box sx={{ width: '100%' }}>
         {activeStep === steps.length ? (
             <React.Fragment>
-            <Typography sx={{ mt: 2, mb: 1 }}>
-                All steps completed - you&apos;re finished
-            </Typography>
+                {loading && (
+                    <Box sx={{ display: 'flex', justifyContent: 'center' }}>
+                        <CircularProgress />
+                    </Box>
+                )}
+
+                {!loading && scoreResults && (
+                    <DetailedResults scoringResult={scoreResults} />
+                )}
+
+                {!loading && !scoreResults && (
+                    <Box sx={{ display: 'flex', justifyContent: 'center', marginTop: 2 }}>
+                        <Button variant="contained" color="primary" onClick={handleScoreResults}>
+                            Get Test Results
+                        </Button>
+                    </Box>
+                )}
             <Box sx={{ display: 'flex', flexDirection: 'row', pt: 2 }}>
                 <Box sx={{ flex: '1 1 auto' }} />
                 <Button onClick={handleReset}>Reset</Button>
