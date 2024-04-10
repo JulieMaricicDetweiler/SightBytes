@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Container, Box, Button, Typography, Paper } from '@mui/material';
 import { Link } from 'react-router-dom';
+import QRCode from 'qrcode.react';
 import { getDatabase, ref, set, update, onValue, get } from 'firebase/database';
 import axios from 'axios';
 
@@ -13,6 +14,8 @@ const Test_Step = ({ onTestCompletion, onSessionIdChange }) => {
     // Vars for both
     const [currentQuestion, setCurrentQuestion] = useState('');
     const [isConnected, setIsConnected] = useState(false);
+
+    const qrUrl = `https://sightbyte-b9325.web.app/test?sessionId=${sessionId}`;
 
     // Code for always updating what question is displayed
     useEffect(() => {
@@ -120,7 +123,7 @@ const Test_Step = ({ onTestCompletion, onSessionIdChange }) => {
                     </Paper>
                 </Box>
                 {!isConnected && !isCompleted &&  (
-                    <Typography variant="body1" sx={{ mt: 15, textAlign: 'center' }}>
+                    <Typography variant="body1" sx={{ mt: 7, textAlign: 'center' }}>
                         Please connect with a mobile device...
                     </Typography>
                 )}
@@ -130,43 +133,52 @@ const Test_Step = ({ onTestCompletion, onSessionIdChange }) => {
 
 
             {!sessionId && !isCompleted && (
-                <Box sx={{ 
-                    display: 'flex', 
-                    flexDirection: 'column', 
-                    justifyContent: 'center', 
-                    alignItems: 'center', 
-                    height: '60vh' // Adjust the height as needed to center vertically in your view
-                }}>
-                    <Typography variant="h3" component="h1" sx={{ fontWeight: 'bold', mb: 1, textAlign: 'center' }}>
-                    Let's start the exam.
-                    </Typography>
-                    <Typography variant="h5" sx={{ mb: 3, textAlign: 'center' }}>
-                    Please create a session.
-                    </Typography>
-                    <Button variant="contained" color="primary" onClick={createSession} sx={{backgroundColor: "#1c4aa6", borderRadius: 0}}>
-                    Create Session
-                    </Button>
-                </Box>
+              <Box sx={{ 
+                  display: 'flex', 
+                  flexDirection: 'column', 
+                  justifyContent: 'center', 
+                  alignItems: 'center', 
+                  height: '60vh' // Adjust the height as needed to center vertically in your view
+              }}>
+                  <Typography variant="h3" component="h1" sx={{ fontWeight: 'bold', mb: 1, textAlign: 'center' }}>
+                  Let's start the exam.
+                  </Typography>
+                  <Typography variant="h5" sx={{ mb: 3, textAlign: 'center' }}>
+                  Please create a session.
+                  </Typography>
+                  <Button variant="contained" color="primary" onClick={createSession} sx={{backgroundColor: "#1c4aa6", borderRadius: 0}}>
+                  Create Session
+                  </Button>
+              </Box>
+            )}
+
+            {sessionId && !isConnected && (
+              <Box sx={{ my: 2, display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+                  <Typography variant="h6" gutterBottom>
+                      Scan this QR code with your mobile device to join:
+                  </Typography>
+                  <QRCode value={qrUrl} size={256} />
+              </Box>
             )}
 
 
             {sessionId && isConnected && !isCompleted && (
-                <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '60vh' }}>
-                    <Typography variant="h1" sx={{ fontSize: '10rem' }}>
-                        {currentQuestion}
-                    </Typography>
-                </Box>
+              <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '60vh' }}>
+                  <Typography variant="h1" sx={{ fontSize: '10rem' }}>
+                      {currentQuestion}
+                  </Typography>
+              </Box>
             )}
 
             {isCompleted && (
-                <Box sx={{ mt: 4, display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-                    <Typography variant="h5" component="h2" gutterBottom>
-                        Thank you very much for completing the test!
-                    </Typography>
-                    <Typography variant="body1">
-                        Please click continue to see your results.
-                    </Typography>
-                </Box>
+              <Box sx={{ mt: 4, display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+                  <Typography variant="h5" component="h2" gutterBottom>
+                      Thank you very much for completing the test!
+                  </Typography>
+                  <Typography variant="body1">
+                      Please click continue to see your results.
+                  </Typography>
+              </Box>
             )}
         </Container>
     );
