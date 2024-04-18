@@ -141,21 +141,30 @@ function HorizontalLinearStepper() {
 
     const handleScoreResults = async () => {
         setLoading(true);
-
+    
         try {
-            const sessionData = await fetchSessionData(sessionId);
+            const sessionData = await fetchSessionData(sessionId);  // Assuming this pulls all necessary data
+            console.log("SESSION DATA IN HANDLE: ", sessionData);
+            // Prepare data as required by the updated API
+            const postData = {
+                leftEyeQuestions: sessionData.leftEyeQuestions,
+                rightEyeQuestions: sessionData.rightEyeQuestions
+            };
+
+            console.log("Post data: ", postData);
+    
             const scoreResponse = await fetch("http://localhost:80/score", {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify(sessionData),
+                body: JSON.stringify(postData),
             });
-
+    
             if (!scoreResponse.ok) {
                 throw new Error('Failed to fetch scoring result');
             }
-
+    
             const scoreResult = await scoreResponse.json();
             setScoreResults(scoreResult); // Set the scoring result state
             console.log("score results: ", scoreResult)
@@ -164,8 +173,8 @@ function HorizontalLinearStepper() {
         } finally {
             setLoading(false);
         }
-
     }
+    
 
     return (
         <Box sx={{ width: '100%' }}>

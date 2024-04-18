@@ -29,8 +29,15 @@ class Question(BaseModel):
     answer: str
     letter: str
 
+    class Config:
+        extra = "allow"
+
 class SessionData(BaseModel):
-    questions: List[Question]
+    leftEyeQuestions: List[Question]
+    rightEyeQuestions: List[Question]
+
+    class Config:
+        extra = "allow"
 
 class DistanceRequest(BaseModel):
     image_base64: str
@@ -102,17 +109,27 @@ def create_session():
 
 @app.post("/score")
 async def score_session(data: SessionData):
-    totalQuestions = len(data.questions)
-    correctAnswers = sum(1 for q in data.questions if q.answer.upper() == q.letter.upper())
-    
-    # Example of building detailed results, adjust as needed
-    detailedResults = [
-        {"question": q.questionId, "answer": q.answer.upper(), "letter": q.letter.upper(), "correct": q.answer.upper() == q.letter.upper()}
-        for q in data.questions
-    ]
-    
+    def calculate_results(questions):
+        totalQuestions = len(questions)
+        correctAnswers = sum(1 for q in questions if q.answer.upper() == q.letter.upper())
+        detailedResults = [
+            {"question": q.questionId, "answer": q.answer.upper(), "letter": q.letter.upper(), "correct": q.answer.upper() == q.letter.upper()}
+            for q in questions
+        ]
+        return totalQuestions, correctAnswers, detailedResults
+
+    totalLeftQuestions, leftCorrectAnswers, leftDetails = calculate_results(data.leftEyeQuestions)
+    totalRightQuestions, rightCorrectAnswers, rightDetails = calculate_results(data.rightEyeQuestions)
+
     return {
-        "totalQuestions": totalQuestions,
-        "correctAnswers": correctAnswers,
-        "questions": detailedResults
+        "leftEye": {
+            "totalQuestions": totalLeftQuestions,
+            "correctAnswers": leftCorrectAnswers,
+            "questions": leftDetails
+        },
+        "rightEye": {
+            "totalQuestions": totalRightQuestions,
+            "correctAnswers": rightCorrectAnswers,
+            "questions": rightDetails
+        }
     }
