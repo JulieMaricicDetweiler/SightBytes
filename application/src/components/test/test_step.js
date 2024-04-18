@@ -186,8 +186,8 @@ const Test_Step = ({ onTestCompletion, onSessionIdChange }) => {
             {sessionId && isConnected && !isCompleted && (
               <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '60vh' }}>
                 {!leftAck && (
-                  <Typography variant="h3">
-                    Please acknowledge the left eye test.
+                  <Typography variant="h3" align="center">
+                    Please check your device for instructions...
                   </Typography>
                 )}
                 {leftAck && !leftDone && (
@@ -197,8 +197,8 @@ const Test_Step = ({ onTestCompletion, onSessionIdChange }) => {
                   </Typography>
                 )}
                 {leftAck && leftDone && !rightAck && (
-                  <Typography variant="h3">
-                    Please acknowledge the right eye test.
+                  <Typography variant="h3" align="center">
+                    Please check your device for instructions...
                   </Typography>
                 )}
                 {leftAck && leftDone && rightAck && (

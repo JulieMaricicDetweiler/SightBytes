@@ -126,7 +126,7 @@ const Test = () => {
       const db = getDatabase();
       const sessionRef = ref(db, `sessions/${sessionId}`);
       const answerRef = ref(db, `sessions/${sessionId}/${!leftDone ? 'leftEyeQuestions' : 'rightEyeQuestions'}/${currentQuestionIndex}/answer`);
-      
+
       set(answerRef, currentAnswer)
         .then(() => {
           console.log("Answer submitted successfully.");
@@ -198,8 +198,8 @@ const Test = () => {
           {isMobile && isConnected && !isCompleted && (
             <Box sx={{ marginTop: '20vh', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 2 }}>
               {!leftAck && (
-                <Box>
-                  <Typography variant="h4" gutterBottom>
+                <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', px: 3, }}>
+                  <Typography variant="h4" align="center" gutterBottom>
                     Please cover your Right eye to test with your Left eye.
                   </Typography>
                   <Button variant="contained" color="primary" onClick={() => {
@@ -217,7 +217,7 @@ const Test = () => {
               )}
               {leftAck && !leftDone && (
                 <>
-                  <Typography variant="h4" gutterBottom>
+                  <Typography variant="h4" align="center" gutterBottom>
                     Please enter what you see.
                   </Typography>
                   <TextField
@@ -241,20 +241,25 @@ const Test = () => {
                 </>
               )}
               {leftDone && !rightAck && (
-                <Box>
-                  <Typography variant="h4" gutterBottom>
-                    Please cover your Left eye to test with your Right eye.
+                <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', px: 3, }}>
+                  <Typography variant="h4" align="center" gutterBottom>
+                      Please cover your Left eye to test with your Right eye.
                   </Typography>
-                  <Button variant="contained" color="primary" onClick={() => {
-                    setRightAck(true);
-                    const db = getDatabase();
-                    update(ref(db, `sessions/${sessionId}`), {
-                      rightAck: true
-                    }).catch((error) => {
-                      console.error("Error updating rightAck in Firebase:", error);
-                    });
-                  }}>
-                    Confirm: My left eye is covered
+                  <Button 
+                      variant="contained" 
+                      color="primary" 
+                      onClick={() => {
+                          setRightAck(true);
+                          const db = getDatabase();
+                          update(ref(db, `sessions/${sessionId}`), {
+                            rightAck: true
+                          }).catch((error) => {
+                            console.error("Error updating rightAck in Firebase:", error);
+                          });
+                      }}
+                      sx={{ mt: 2 }} // Adds margin-top for spacing between the text and the button
+                  >
+                      Confirm: My left eye is covered
                   </Button>
                 </Box>
               )}
