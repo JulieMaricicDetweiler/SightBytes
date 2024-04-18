@@ -1,37 +1,73 @@
 import React from 'react';
-import { Box, Typography, Paper, Chip } from '@mui/material';
+import { Box, Typography, Paper, Chip, Grid } from '@mui/material';
 
 const DetailedResults = ({ scoringResult }) => (
-    <Box sx={{ mt: 4, display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-        <Typography variant="h4" gutterBottom>
-        Detailed Results
+    <Box sx={{ mt: 4, p: 3 }}>
+        <Typography variant="h4" gutterBottom textAlign="center">
+            Detailed Results
         </Typography>
-        {scoringResult.questions.map((q, index) => (
-        <Paper
-            key={index}
-            sx={{
-            p: 2,
-            my: 1,
-            width: '80%',
-            display: 'flex',
-            justifyContent: 'space-between',
-            alignItems: 'center',
-            backgroundColor: q.correct ? '#e8f5e9' : '#ffebee',
-            }}
-        >
-            <Typography variant="body1" sx={{ fontWeight: 'bold' }}>
-            Q{q.question}:
-            </Typography>
-            <Typography variant="body2">Your answer: {q.answer}</Typography>
-            <Typography variant="body2">Correct answer: {q.letter}</Typography>
-            <Chip
-            label={q.correct ? "Correct" : "Incorrect"}
-            color={q.correct ? "success" : "error"}
-            sx={{ height: '24px' }}
-            />
-        </Paper>
-        ))}
+        <Grid container spacing={2}>
+            <Grid item xs={12} md={6}>
+                <Typography variant="h5" gutterBottom textAlign="center">
+                    Left Eye Results
+                </Typography>
+                {scoringResult.leftEye.questions.map((q, index) => (
+                    <Paper
+                        key={index}
+                        sx={{
+                            p: 2,
+                            my: 1,
+                            display: 'flex',
+                            justifyContent: 'space-between',
+                            alignItems: 'center',
+                            backgroundColor: q.correct ? '#e8f5e9' : '#ffebee',
+                        }}
+                    >
+                        <Typography variant="body1" sx={{ fontWeight: 'bold' }}>
+                            Q{q.question}:
+                        </Typography>
+                        <Typography variant="body2">Your answer: {q.answer}</Typography>
+                        <Typography variant="body2">Correct answer: {q.letter}</Typography>
+                        <Chip
+                            label={q.correct ? "Correct" : "Incorrect"}
+                            color={q.correct ? "success" : "error"}
+                            sx={{ height: '24px' }}
+                        />
+                    </Paper>
+                ))}
+            </Grid>
+            <Grid item xs={12} md={6}>
+                <Typography variant="h5" gutterBottom textAlign="center">
+                    Right Eye Results
+                </Typography>
+                {scoringResult.rightEye.questions.map((q, index) => (
+                    <Paper
+                        key={index}
+                        sx={{
+                            p: 2,
+                            my: 1,
+                            display: 'flex',
+                            justifyContent: 'space-between',
+                            alignItems: 'center',
+                            backgroundColor: q.correct ? '#e8f5e9' : '#ffebee',
+                        }}
+                    >
+                        <Typography variant="body1" sx={{ fontWeight: 'bold' }}>
+                            Q{q.question}:
+                        </Typography>
+                        <Typography variant="body2">Your answer: {q.answer}</Typography>
+                        <Typography variant="body2">Correct answer: {q.letter}</Typography>
+                        <Chip
+                            label={q.correct ? "Correct" : "Incorrect"}
+                            color={q.correct ? "success" : "error"}
+                            sx={{ height: '24px' }}
+                        />
+                    </Paper>
+                ))}
+            </Grid>
+        </Grid>
     </Box>
 );
 
 export default DetailedResults;
+

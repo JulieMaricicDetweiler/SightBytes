@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Container, Box, Button, Typography, Paper } from '@mui/material';
+import { Container, Box, Button, Typography, Paper, getFormControlLabelUtilityClasses } from '@mui/material';
 import { Link } from 'react-router-dom';
 import QRCode from 'qrcode.react';
 import { getDatabase, ref, set, update, onValue, get } from 'firebase/database';
@@ -10,6 +10,10 @@ const Test_Step = ({ onTestCompletion, onSessionIdChange }) => {
     const [sessionId, setSessionId] = useState('');
 
     const [isCompleted, setIsCompleted] = useState(false);
+    const [leftAck, setLeftAck] = useState(false);
+    const [rightAck, setRightAck] = useState(false);
+    const [leftDone, setLeftDone] = useState(false);
+    const [rightDone, setRightDone] = useState(false);
 
     // Vars for both
     const [currentQuestion, setCurrentQuestion] = useState('');
@@ -24,9 +28,19 @@ const Test_Step = ({ onTestCompletion, onSessionIdChange }) => {
         const sessionRef = ref(db, `sessions/${sessionId}`);
         onValue(sessionRef, (snapshot) => {
           const data = snapshot.val();
-          if (data && data.questions) {
-            setCurrentQuestion(data.questions[data.currentQuestionIndex].letter);
+          if (data && data.leftEyeQuestions && data.rightEyeQuestions) {
             setIsCompleted(data.completed);
+            setLeftAck(data.leftAck);
+            setRightAck(data.rightAck);
+            setLeftDone(data.leftDone);
+            setRightDone(data.rightDone);
+
+            if (!data.leftDone && !data.rightDone) {
+              setCurrentQuestion(data.leftEyeQuestions[data.currentQuestionIndex].letter)
+            }
+            else if (data.leftDone && !data.rightDone) {
+              setCurrentQuestion(data.rightEyeQuestions[data.currentQuestionIndex].letter)
+            }
           }
         });
       }
@@ -56,7 +70,7 @@ const Test_Step = ({ onTestCompletion, onSessionIdChange }) => {
     }, [sessionId])
     
     // Generating random letters FOR NOW
-    const generateTestTemplate = () => {
+    const generateTestTemplate = (eye) => {
       const letters = "ABCDEFGHIJKLNOPQRSTUVWXYZ";
       const questions = [];
       const numQuestions = 10;
@@ -67,6 +81,7 @@ const Test_Step = ({ onTestCompletion, onSessionIdChange }) => {
           questionId: i + 1,
           letter: letters[randIndex],
           answer: '',
+          eye: eye,
         });
       }
 
@@ -75,13 +90,19 @@ const Test_Step = ({ onTestCompletion, onSessionIdChange }) => {
 
     const postSessionToFirebase = async (sessionId) => {
       const db = getDatabase();
-      const questions = generateTestTemplate(); // Ensure this function returns an array of questions
+      const leftEyeQuestions = generateTestTemplate("L"); 
+      const rightEyeQuestions = generateTestTemplate("R"); 
     
       set(ref(db, `sessions/${sessionId}`), {
         connected: false,
         currentQuestionIndex: 0,
-        questions: questions,
-        completed: false
+        leftEyeQuestions: leftEyeQuestions,
+        rightEyeQuestions: rightEyeQuestions,
+        leftAck: false, // set to false to show disclaimer
+        rightAck: false, // set to false to show disclaimer
+        leftDone: false, // indicates completion of left eye
+        rightDone: false, // indicates completion of right eye
+        completed: false  // indicates completion of test
       }).then(() => {
         console.log(`Session ${sessionId} successfully created in Firebase.`);
       }).catch((error) => {
@@ -164,9 +185,28 @@ const Test_Step = ({ onTestCompletion, onSessionIdChange }) => {
 
             {sessionId && isConnected && !isCompleted && (
               <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '60vh' }}>
-                  <Typography variant="h1" sx={{ fontSize: '10rem' }}>
-                      {currentQuestion}
+                {!leftAck && (
+                  <Typography variant="h3">
+                    Please acknowledge the left eye test.
                   </Typography>
+                )}
+                {leftAck && !leftDone && (
+                  <Typography variant="h1" sx={{ fontSize: '10rem' }}>
+                    {/* Display left eye questions */}
+                    {currentQuestion}
+                  </Typography>
+                )}
+                {leftAck && leftDone && !rightAck && (
+                  <Typography variant="h3">
+                    Please acknowledge the right eye test.
+                  </Typography>
+                )}
+                {leftAck && leftDone && rightAck && (
+                  <Typography variant="h1" sx={{ fontSize: '10rem' }}>
+                    {/* Display right eye questions */}
+                    {currentQuestion}
+                  </Typography>
+                )}
               </Box>
             )}
 
