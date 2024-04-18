@@ -191,7 +191,7 @@ function HorizontalLinearStepper() {
                 )}
 
                 {!loading && !scoreResults && (
-                    <Box sx={{ display: 'flex', justifyContent: 'center', marginTop: 2 }}>
+                    <Box sx={{ display: 'flex', justifyContent: 'center', marginTop: 30 }}>
                         <Button variant="contained" color="primary" onClick={handleScoreResults}>
                             Get Test Results
                         </Button>
