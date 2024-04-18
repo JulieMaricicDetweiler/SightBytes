@@ -144,7 +144,7 @@ function HorizontalLinearStepper() {
 
         try {
             const sessionData = await fetchSessionData(sessionId);
-            const scoreResponse = await fetch("http://localhost:80/score", {
+            const scoreResponse = await fetch("http://localhost:8000/score", {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

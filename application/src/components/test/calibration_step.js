@@ -1,4 +1,4 @@
-import React, { useCallback, useRef, useState } from "react";
+import React, { useCallback, useRef, useState, useEffect } from "react";
 import Webcam from "react-webcam";
 import axios from "axios";
 import { Container, Box, Button, Typography } from "@mui/material";
@@ -8,13 +8,14 @@ import { Link } from "react-router-dom";
 const Calibration_Step = () => {
   const webcamRef = useRef(null);
   const [distance, setDistance] = useState(null);
+  const [intervalId, setIntervalId] = useState(null);
 
   const capture = useCallback(async () => {
     const imageSrc = webcamRef.current.getScreenshot();
     const base64Image = await convertImageToBase64(imageSrc);
 
     try {
-      const response = await axios.post("http://localhost:80/distance", {
+      const response = await axios.post("http://localhost:8000/distance", {
         image_base64: base64Image,
       });
       setDistance(response.data.distance);
@@ -22,6 +23,15 @@ const Calibration_Step = () => {
       console.error("Error calculating distance:", error);
     }
   }, []);
+
+  useEffect(() => {
+    const interval = setInterval(capture, 1000);
+    setIntervalId(interval);
+
+    return () => {
+      clearInterval(interval);
+    };
+  }, [capture]);
 
   const convertImageToBase64 = (imageSrc) => {
     return new Promise((resolve, reject) => {
@@ -83,9 +93,6 @@ const Calibration_Step = () => {
           Calibration Step
         </Typography>
         <Webcam height={600} width={600} ref={webcamRef} />
-        <Button variant="contained" onClick={capture}>
-          Capture
-        </Button>
         {distance && (
           <Typography variant="body1">
             Distance: {distance.toFixed(2)} cm
