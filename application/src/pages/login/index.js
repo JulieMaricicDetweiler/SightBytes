@@ -69,7 +69,7 @@ function Login() {
 
     return (
    
-    <Container component="main" maxWidth="xs">
+    <Container component="main" maxWidth="xs" sx={{position: 'relative', marginTop: '150px'}}>
     <CssBaseline />
     <Box
         sx={{
@@ -86,10 +86,12 @@ function Login() {
         sx={{
             fontFamily: 'helvetica',
             fontWeight: 500,
-            color: 'black'
+            color: 'black',
+            fontSize: {xs: 16, sm: 22, md: 30},
+            fontFamily: 'Raleway',
         }}
         >
-        Sign in
+        Log In
         </Typography>
 
         {loginFailed && <Typography
@@ -97,7 +99,9 @@ function Login() {
             sx={{
                 color: 'red',
                 float: 'left',
-                paddingTop: 3
+                paddingTop: 3,
+                fontSize: {xs: 16, sm: 22, md: 30},
+                fontFamily: 'Raleway'
             }}
         >
             Username or password invalid
@@ -116,6 +120,7 @@ function Login() {
             autoFocus
             value = {email}
             onChange = {(e) => setEmail(e.target.value)}
+            sx={{fontSize: {xs: 10, sm: 12, md:20}, fontFamily: 'Raleway'}}
         />
         <TextField
             margin="normal"
@@ -128,20 +133,22 @@ function Login() {
             autoComplete="current-password"
             value = {password}
             onChange = {(e) => setPassword(e.target.value)}
+            sx={{fontSize: {xs: 10, sm: 12, md:20}, fontFamily: 'Raleway'}}
         />
         <FormControlLabel
             control={<Checkbox value="remember" color="primary" />}
             label="Remember me"
+            sx={{fontSize: {xs: 10, sm: 12, md:20}, fontFamily: 'Raleway'}}
         />
         <Button
             type="submit"
             fullWidth
             variant="contained"
-            sx={{ mt: 3, mb: 2, fontFamily: "helvetica", backgroundColor: "#1c4aa6", borderRadius: 0}}
+            sx={{ mt: 3, mb: 2, fontFamily: "Raleway", fontSize: {xs: 10, sm: 12, md:20}, backgroundColor: '#1c4aa6'}}
         >
-            Sign In
+            Log In
         </Button>
-        <Link href="/signup" variant="body2">
+        <Link href="/signup" variant="body2" sx={{fontSize: {xs: 10, sm: 12, md:20}, fontFamily: 'Raleway', fontWeight: 400}}>
             {"Don't have an account? Sign Up"}
         </Link>
         </Box>

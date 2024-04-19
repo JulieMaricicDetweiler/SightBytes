@@ -41,11 +41,11 @@ function Navbar() {
     }, []);
 
     return (
-        <AppBar position="static" sx={{ background: '#F5FEFD', boxShadow: '0px 4px 8px rgba(0, 0, 0, 0.2)', height: '64px', display: 'flex' }}>
+        <AppBar position="fixed" sx={{ top: '0px', background: '#F5FEFD', boxShadow: '0px 4px 8px rgba(0, 0, 0, 0.2)', height: '64px', display: 'flex', }}>
             <Container maxWidth="false" sx={{ display: 'flex', flexGrow: 1, justifyContent: 'space-between', alignItems: 'center' }}>
                 <Link to="/" style={{ height: "auto", display: "flex", alignItems: "center", justifyContent: "center", gap: "0.5em", textDecoration: "none" }}>
                     <SvgIcon component={EyeLogo} fontSize={"large"} inheritViewBox />
-                    <Typography variant="h5" noWrap sx={{ fontFamily: 'garamond', fontWeight: 700, color: 'black', fontSize: '1.5rem' }}>
+                    <Typography variant="h5" noWrap sx={{ fontFamily: 'garamond', fontWeight: 700, color: 'black', fontSize: '2rem' }}>
                         SightBytes
                     </Typography>
                 </Link>
@@ -54,13 +54,13 @@ function Navbar() {
                     <Toolbar disableGutters sx={{ display: "flex", justifyContent: "space-between",  alignItems: "center", columnGap: "2em" }}>
                         {!isMobile && (
                         <Link to="/about" style={{ textDecoration: "none" }}>
-                            <Button size="large" style={{ fontFamily: "helvetica", fontWeight: "bold", color: "black" }}>
+                            <Button size="large" style={{ fontFamily: "Raleway", fontWeight: "bold", color: "black", fontSize: '1.2rem' }}>
                                 About
                             </Button>
                         </Link>)}
                         {!isMobile && 
                         (<Link to="/contact" style={{ textDecoration: "none" }}>
-                            <Button size="large" style={{ fontFamily: "helvetica", fontWeight: "bold", color: "black" }}>
+                            <Button size="large" style={{ fontFamily: "Raleway", fontWeight: "bold", color: "black", fontSize: '1.2rem' }}>
                                 Contact Us
                             </Button>
                         </Link>)}
@@ -68,7 +68,7 @@ function Navbar() {
                         {currentUser ? 
                             <>
                             <Link to="/login" style={{ textDecoration: "none" }}>
-                                <Button onClick={signOut} size="large" style={{ fontFamily: "helvetica", fontWeight: "bold", backgroundColor: hexToRgb("#1c4aa6"), borderRadius: 0 }} variant="contained">
+                                <Button onClick={signOut} size="large" style={{ fontFamily: "Raleway", fontWeight: "bold", backgroundColor: hexToRgb("#1c4aa6"), borderRadius: 0, fontSize: '1.2rem'  }} variant="contained">
                                     Sign Out
                                 </Button>
                             </Link>
@@ -78,7 +78,7 @@ function Navbar() {
                             </>
                         :
                             <Link to="/login" style={{ textDecoration: "none" }}>
-                                <Button size="large" style={{ fontFamily: "helvetica", fontWeight: "bold", backgroundColor: hexToRgb("#1c4aa6"), borderRadius: 0 }} variant="contained">
+                                <Button size="large" style={{ fontFamily: "Raleway", fontWeight: "bold", backgroundColor: hexToRgb("#1c4aa6"), borderRadius: 0, fontSize: '1.2rem'}} variant="contained">
                                     Login
                                 </Button>
                             </Link>

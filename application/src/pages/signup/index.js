@@ -90,7 +90,7 @@ function SignUp() {
       };
     
       return (
-        <Container component="main" maxWidth="xs">
+        <Container component="main" maxWidth="xs" sx={{position: 'relative', marginTop: '150px'}}>
         <CssBaseline />
         <Box
             sx={{
@@ -105,7 +105,7 @@ function SignUp() {
             <Typography 
             variant="h4"
             sx={{
-                fontFamily: 'helvetica',
+                fontFamily: 'Raleway',
                 fontWeight: 500,
                 color: 'black'
             }}
@@ -173,11 +173,11 @@ function SignUp() {
                 type="submit"
                 fullWidth
                 variant="contained"
-                sx={{ mt: 3, mb: 2, fontFamily: "helvetica" }}
+                sx={{ mt: 3, mb: 2, fontFamily: "Raleway", fontSize: {xs: 10, sm: 12, md:20}, backgroundColor: '#1c4aa6'}}
             >
                 Sign Up
             </Button>
-            <Link href="/login" variant="body2">
+            <Link href="/login" variant="body2" sx={{fontSize: {xs: 10, sm: 12, md:20}, fontFamily: 'Raleway'}}>
                 {"Already have an account? Sign in"}
             </Link>
             </Box>

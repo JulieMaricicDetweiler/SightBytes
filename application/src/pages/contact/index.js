@@ -27,6 +27,7 @@ const Contact = () => {
           fontFamily: 'garamond',
           marginBottom: '2em',
           textAlign: 'left',
+          fontSize: {xs: 16, sm: 20, md: 24}
         }}
       >
         Tam Huynh - tamhuynh@ufl.edu<br />
