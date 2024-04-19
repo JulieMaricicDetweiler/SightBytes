@@ -299,7 +299,7 @@ const Test_Step = ({ onTestCompletion, onSessionIdChange }) => {
                     visibility: "hidden", // Hide from the user
                 }}
             />
-            <Box sx={{ my: 4, display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+            <Box sx={{ my: 4, display: 'flex', flexDirection: 'column', alignItems: 'center', mt: 10 }}>
             {sessionId && !isCompleted && (
                 <>
                 <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', width: '100%' }}>
