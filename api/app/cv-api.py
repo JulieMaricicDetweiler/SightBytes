@@ -78,9 +78,15 @@ async def calculate_distance(request: DistanceRequest):
             pointRight = face[374]
             w, _ = detector.findDistance(pointLeft, pointRight)
             
+            # find focal point first 
+            W = 6.3 # Average distance between eyes
+
+            # finding focal point
+            # d = 31
+            # f = (w*d)/ W
             # Constants for calculations
-            W = 6.3  # Average distance between eyes
-            f = 930  # Focal length (adjust this according to your setup)
+          
+            f = 650  # Focal length (adjust this according to your setup)
             
             # Calculate distance
             d = (W * f) / w
