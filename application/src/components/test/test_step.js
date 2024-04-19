@@ -90,34 +90,34 @@ const Test_Step = ({ onTestCompletion, onSessionIdChange }) => {
       if (currQuestionIndex == 1) { // 20/200, 1 letter, ratio calculated not gen
         tempPoint = 434;
       }
-      else if (currQuestionIndex >= 2 && currQuestionIndex <= 3) { // 20/100, 2 letters, ratio calculated not gen
+      else if (currQuestionIndex == 2 ) { // 20/100, 2 letters, ratio calculated not gen
         tempPoint = 217;
       }
-      else if (currQuestionIndex >= 4 && currQuestionIndex >= 6) { // 20/70, 3 letters
+      else if (currQuestionIndex == 3) { // 20/70, 3 letters
         tempPoint = 152;
       }
-      else if (currQuestionIndex >= 7 && currQuestionIndex >= 10) {// 20/50, 4 letters
+      else if (currQuestionIndex == 4) {// 20/50, 4 letters
         tempPoint = 108;
       }
-      else if (currQuestionIndex >= 11 && currQuestionIndex >= 15) {// 20/40, 5 letters
+      else if (currQuestionIndex == 5) {// 20/40, 5 letters
         tempPoint = 87;
       }
-      else if (currQuestionIndex >= 16 && currQuestionIndex >= 21) {// 20/30, 6 letters
+      else if (currQuestionIndex == 6) {// 20/30, 6 letters
         tempPoint = 65;
       }
-      else if (currQuestionIndex >= 22 && currQuestionIndex >= 28) {// 20/25, 7 letters, ratio calculated gen
+      else if (currQuestionIndex == 7) {// 20/25, 7 letters, ratio calculated gen
         tempPoint = 52;
       }
-      else if (currQuestionIndex >= 29 && currQuestionIndex >= 36) {// 20/20, 8 letters
+      else if (currQuestionIndex == 8) {// 20/20, 8 letters
         tempPoint = 43;
       }
-      else if (currQuestionIndex >= 37 && currQuestionIndex >= 44) {// 20/15, 8 letters, ratio calculated gen
+      else if (currQuestionIndex ==9) {// 20/15, 8 letters, ratio calculated gen
         tempPoint = 34;
       }
-      else if (currQuestionIndex >= 45 && currQuestionIndex >= 52) {// 20/13, 8 letters, ratio calculated gen
+      else if (currQuestionIndex == 10) {// 20/13, 8 letters, ratio calculated gen
         tempPoint = 26;
       }
-      else if (currQuestionIndex >= 53 && currQuestionIndex >= 61) {// 20/10, 9 letters
+      else if (currQuestionIndex == 11) {// 20/10, 9 letters
         tempPoint = 21;
       }
       
@@ -224,7 +224,7 @@ const Test_Step = ({ onTestCompletion, onSessionIdChange }) => {
     const generateTestTemplate = () => {
       const letters = "CDEFLOPTZ"; // these letters are the common snellen chart letters
       const questions = [];
-      const numQuestions = 61;
+      const numQuestions = 10;
 
       for (let i = 0; i < numQuestions; i++) {
         if(i == 0){
