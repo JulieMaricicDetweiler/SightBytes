@@ -2,7 +2,7 @@ import React from 'react';
 import { Box, Typography, Paper, Chip, Grid } from '@mui/material';
 
 const DetailedResults = ({ scoringResult }) => (
-    <Box sx={{ mt: 4, p: 3 }}>
+    <Box sx={{ mt: 4, p: 3 }} fontFamily={'Raleway'} marginTop={'0px'}>
         <Typography variant="h4" gutterBottom textAlign="center">
             Detailed Results
         </Typography>

@@ -13,6 +13,7 @@ import io
 from imageio import imread
 import matplotlib.pyplot as plt
 from typing import List
+from datetime import datetime
 
 app = FastAPI()
 
@@ -120,6 +121,7 @@ async def score_session(data: SessionData):
 
     totalLeftQuestions, leftCorrectAnswers, leftDetails = calculate_results(data.leftEyeQuestions)
     totalRightQuestions, rightCorrectAnswers, rightDetails = calculate_results(data.rightEyeQuestions)
+    curr_date = datetime.now().date()
 
     return {
         "leftEye": {
@@ -131,5 +133,6 @@ async def score_session(data: SessionData):
             "totalQuestions": totalRightQuestions,
             "correctAnswers": rightCorrectAnswers,
             "questions": rightDetails
-        }
+        },
+        "date": curr_date
     }

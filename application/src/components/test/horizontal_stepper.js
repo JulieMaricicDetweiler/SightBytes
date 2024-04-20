@@ -16,6 +16,10 @@ import Calibration_Step from './calibration_step';
 import { getDatabase, ref, get } from "firebase/database";
 import DetailedResults from './detailedResults';
 import { CircularProgress } from '@mui/material';
+import { AuthContext } from '../authContext/authContext';
+import { addDoc, collection, doc, setDoc } from "firebase/firestore";
+import firebaseConfig from "../../firebase/firebaseConfig";
+
 
 const QontoConnector = styled(StepConnector)(({ theme }) => ({
     [`&.${stepConnectorClasses.alternativeLabel}`]: {
@@ -87,6 +91,8 @@ function HorizontalLinearStepper() {
     const [sessionId, setSessionId] = useState("");
     const [loading, setLoading] = useState(false);
     const [scoreResults, setScoreResults] = useState(null);
+    const { currentUser } = React.useContext(AuthContext);
+
 
 
     // Callback function for test completion
@@ -106,7 +112,7 @@ function HorizontalLinearStepper() {
         <Test_Step key="test" onTestCompletion={handleTestCompletion} onSessionIdChange={handleSessionIdChange}/>];
     const [activeStep, setActiveStep] = React.useState(0);
 
-    const isTestStep = activeStep ===3;
+    const isTestStep = activeStep === 3;
 
     const handleNext = () => {
         if (isTestStep && !isTestCompleted) {
@@ -167,6 +173,14 @@ function HorizontalLinearStepper() {
     
             const scoreResult = await scoreResponse.json();
             setScoreResults(scoreResult); // Set the scoring result state
+            //STORE RESULTS TO FIRESTORE when user is logged in
+            if(currentUser) {
+                console.log("User ID: " + currentUser.uid);
+                const docPath = "users/" + currentUser.uid + "/tests";
+                const ref = doc(firebaseConfig.firestore, docPath, sessionId);
+                const docRef = await setDoc(ref, {scoreResult});
+            }
+
             console.log("score results: ", scoreResult)
         } catch (error) {
             console.error("Error: ", error);
