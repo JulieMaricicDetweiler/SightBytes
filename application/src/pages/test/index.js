@@ -180,7 +180,7 @@ const Test = () => {
   
       
   return (
-      <div className="test-page-container">
+      <div className="test-page-container" style={{position: 'relative', marginTop: '150px'}}>
 
           {!isMobile && !sessionId && (
             <HorizontalLinearStepper/>
