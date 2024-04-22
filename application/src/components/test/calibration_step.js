@@ -15,7 +15,7 @@ const Calibration_Step = () => {
     const base64Image = await convertImageToBase64(imageSrc);
 
     try {
-      const response = await axios.post("http://localhost:80/distance", {
+      const response = await axios.post("http://localhost:8000/distance", {
         image_base64: base64Image,
       });
       setDistance(response.data.distance);
