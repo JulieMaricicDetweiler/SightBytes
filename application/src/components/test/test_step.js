@@ -315,6 +315,8 @@ const Test_Step = ({ onTestCompletion, onSessionIdChange }) => {
       <Container maxWidth="sm">
             <Webcam
                 ref={webcamRef}
+                height={600} 
+                width={600}
                 style={{
                     position: "absolute",
                     visibility: "hidden", // Hide from the user
@@ -407,7 +409,7 @@ const Test_Step = ({ onTestCompletion, onSessionIdChange }) => {
 
             {sessionId && isConnected && !isCompleted && isPaused === 1 && (
               <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '60vh' }}>
-                <Typography variant="h1">
+                <Typography variant="h1" textAlign="center">
                   Come closer to the screen
                 </Typography>
               </Box>
@@ -415,7 +417,7 @@ const Test_Step = ({ onTestCompletion, onSessionIdChange }) => {
             
             {sessionId && isConnected && !isCompleted && isPaused === -1 && (
               <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '60vh' }}>
-                <Typography variant="h1">
+                <Typography variant="h1" textAlign="center">
                   Go further from the screen
                 </Typography>
               </Box>

@@ -9,7 +9,7 @@ const DetailedResults = ({ scoringResult }) => (
         <Grid container spacing={2}>
             <Grid item xs={12} md={6}>
                 <Typography variant="h5" gutterBottom textAlign="center">
-                    Left Eye Results
+                    Left Eye Results: {scoringResult.leftEye.result}
                 </Typography>
                 {scoringResult.leftEye.questions.map((q, index) => (
                     <Paper
@@ -38,7 +38,7 @@ const DetailedResults = ({ scoringResult }) => (
             </Grid>
             <Grid item xs={12} md={6}>
                 <Typography variant="h5" gutterBottom textAlign="center">
-                    Right Eye Results
+                    Right Eye Results: {scoringResult.rightEye.result}
                 </Typography>
                 {scoringResult.rightEye.questions.map((q, index) => (
                     <Paper
