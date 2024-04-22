@@ -44,6 +44,12 @@ const Test_Step = ({ onTestCompletion, onSessionIdChange }) => {
       calculateFontSize();
     }, [distance, initialDistance]);
 
+    useEffect(() => {
+      if (currentQuestion) {
+          calculateFontSize(); // Calculate font size whenever currentQuestion changes
+      }
+  }, [currentQuestion]);
+
     const distancePauseCalc = () => {
       // Check if distance and initialDistance have been set
       if (distance !== null && initialDistance !== null) {
@@ -70,7 +76,7 @@ const Test_Step = ({ onTestCompletion, onSessionIdChange }) => {
       const base64Image = await convertImageToBase64(imageSrc);
   
       try {
-        const response = await axios.post("http://localhost:80/distance", {
+        const response = await axios.post("http://localhost:8000/distance", {
           image_base64: base64Image,
         });
         await setDistance(response.data.distance);
@@ -157,8 +163,10 @@ const Test_Step = ({ onTestCompletion, onSessionIdChange }) => {
         img.src = imageSrc;
       });
     };
+    
 
     useEffect(() => {
+      console.log("AAAAAAAAFHGDHIGBDIWGBDUIHWGDIUWHBHIUDBWIDBW");
       if (sessionId) {
         const db = getDatabase();
         const sessionRef = ref(db, `sessions/${sessionId}`);
@@ -229,32 +237,44 @@ const Test_Step = ({ onTestCompletion, onSessionIdChange }) => {
 
 
     const generateTestTemplate = (eye) => {
-      const letters = "CDEFLOPTZ"; // these letters are the common snellen chart letters
+      const letters = "CDEFLOPTZ"; // these letters are the common Snellen chart letters
       const questions = [];
       const numQuestions = 10;
-
-      for (let i = 0; i < numQuestions; i++) {
-        if(i == 0){
+  
+      let prevLetter = ''; // Keep track of the previous letter
+  
+      // Push "E" as the first question
+      questions.push({
+          questionId: 1,
+          letter: "E",
+          answer: '',
+          eye: eye,
+      });
+      
+      prevLetter = "E";
+  
+      for (let i = 1; i < numQuestions; i++) {
+          let selectedLetter;
+  
+          // Randomly select a letter that is not the same as the previous one
+          do {
+              const randIndex = Math.floor(Math.random() * letters.length);
+              selectedLetter = letters[randIndex];
+          } while (selectedLetter === prevLetter);
+  
+          // Set the previous letter to the current one
+          prevLetter = selectedLetter;
+  
           questions.push({
-            questionId: i + 1,
-            letter: "E",
-            answer: '',
-            eye: eye,
+              questionId: i + 1,
+              letter: selectedLetter,
+              answer: '',
+              eye: eye,
           });
-        }
-        else {
-          const randIndex = Math.floor(Math.random() * letters.length);
-          questions.push({
-            questionId: i + 1,
-            letter: letters[randIndex],
-            answer: '',
-            eye: eye,
-          });
-        }
       }
-
+  
       return questions;
-    }
+  }
 
     const postSessionToFirebase = async (sessionId) => {
       const db = getDatabase();
@@ -282,7 +302,7 @@ const Test_Step = ({ onTestCompletion, onSessionIdChange }) => {
     const createSession = async() => {
       console.log('Attempting to create a session');
       try {
-        const response = await axios.post('http://localhost:80/create-session');
+        const response = await axios.post('http://localhost:8000/create-session');
         const newSessionId = response.data.session_id; // Assuming this is how your session ID is returned
         setSessionId(newSessionId); // Set session ID in state
         await postSessionToFirebase(newSessionId);
@@ -295,6 +315,8 @@ const Test_Step = ({ onTestCompletion, onSessionIdChange }) => {
       <Container maxWidth="sm">
             <Webcam
                 ref={webcamRef}
+                height={600} 
+                width={600}
                 style={{
                     position: "absolute",
                     visibility: "hidden", // Hide from the user
@@ -387,7 +409,7 @@ const Test_Step = ({ onTestCompletion, onSessionIdChange }) => {
 
             {sessionId && isConnected && !isCompleted && isPaused === 1 && (
               <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '60vh' }}>
-                <Typography variant="h1">
+                <Typography variant="h1" textAlign="center">
                   Come closer to the screen
                 </Typography>
               </Box>
@@ -395,7 +417,7 @@ const Test_Step = ({ onTestCompletion, onSessionIdChange }) => {
             
             {sessionId && isConnected && !isCompleted && isPaused === -1 && (
               <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '60vh' }}>
-                <Typography variant="h1">
+                <Typography variant="h1" textAlign="center">
                   Go further from the screen
                 </Typography>
               </Box>

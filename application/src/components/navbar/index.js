@@ -6,8 +6,8 @@ import { Toolbar, hexToRgb } from '@mui/material';
 import { Link, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../authContext/authContext';
 import firebaseConfig from "../../firebase/firebaseConfig";
-import UserIcon from '../../assets/eye.png'; // Import the PNG image
-import UserIcon2 from '../../assets/user.png';
+import UserIcon from './../../assets/eye.png'; // Import the PNG image
+import UserIcon2 from './../../assets/user.png';
 
 function Navbar() {
     const [isMobile, setIsMobile] = useState(window.innerWidth < 768);

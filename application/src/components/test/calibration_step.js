@@ -8,6 +8,8 @@ import { Link } from "react-router-dom";
 const Calibration_Step = () => {
   const webcamRef = useRef(null);
   const [distance, setDistance] = useState(null);
+  const [focalPoint, setFocalPoint] = useState(null);
+  const [finalFocalPoint, setFinalFocalPoint] = useState(null);
   const [intervalId, setIntervalId] = useState(null);
 
   const capture = useCallback(async () => {
@@ -15,14 +17,23 @@ const Calibration_Step = () => {
     const base64Image = await convertImageToBase64(imageSrc);
 
     try {
-      const response = await axios.post("http://localhost:80/distance", {
+      const response = await axios.post("http://localhost:8000/calibrate", {
         image_base64: base64Image,
       });
-      setDistance(response.data.distance);
+      setFocalPoint(response.data.focalPoint);
     } catch (error) {
       console.error("Error calculating distance:", error);
     }
   }, []);
+
+  const setFinal = () => {
+    setFinalFocalPoint(focalPoint);
+  }
+
+  useEffect(() => {
+    console.log(finalFocalPoint);
+    
+  }, [finalFocalPoint]);
 
   useEffect(() => {
     const interval = setInterval(capture, 1000);
@@ -105,11 +116,14 @@ const Calibration_Step = () => {
         >
           <Webcam height={600} width={600} ref={webcamRef} />
         </div>
-        {distance && (
+        {finalFocalPoint && (
           <Typography variant="body1">
-            Distance: {distance.toFixed(2)} cm
+            Focal Point: {finalFocalPoint.toFixed(2)} 
           </Typography>
         )}
+        <Button variant="contained" onClick={setFinal}>
+          Capture Focal Point
+        </Button>
       </Box>
     </Container>
   );

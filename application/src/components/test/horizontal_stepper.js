@@ -159,7 +159,7 @@ function HorizontalLinearStepper() {
 
             console.log("Post data: ", postData);
     
-            const scoreResponse = await fetch("http://localhost:80/score", {
+            const scoreResponse = await fetch("http://localhost:8000/score", {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
