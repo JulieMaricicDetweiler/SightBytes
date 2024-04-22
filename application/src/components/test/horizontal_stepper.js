@@ -29,28 +29,28 @@ const QontoConnector = styled(StepConnector)(({ theme }) => ({
     },
     [`&.${stepConnectorClasses.active}`]: {
       [`& .${stepConnectorClasses.line}`]: {
-        borderColor: '#784af4',
+        borderColor: '#ADD8E6',
       },
     },
     [`&.${stepConnectorClasses.completed}`]: {
       [`& .${stepConnectorClasses.line}`]: {
-        borderColor: '#784af4',
+        borderColor: '#ADD8E6',
       },
     },
     [`& .${stepConnectorClasses.line}`]: {
-      borderColor: theme.palette.mode === 'dark' ? theme.palette.grey[800] : '#eaeaf0',
+      borderColor: theme.palette.mode === 'dark' ? theme.palette.grey[800] : '#808080',
       borderTopWidth: 3,
       borderRadius: 1,
     },
 }));
     
 const QontoStepIconRoot = styled('div')(({ theme, ownerState }) => ({
-    color: theme.palette.mode === 'dark' ? theme.palette.grey[700] : '#eaeaf0',
+    color: theme.palette.mode === 'dark' ? theme.palette.grey[700] : '#808080',
     display: 'flex',
     height: 22,
     alignItems: 'center',
     ...((ownerState.active || ownerState.completed) && {
-        color: '#784af4',
+        color: '#ADD8E6',
     }),
     '& .QontoStepIcon-circle': {
         width: 8,
@@ -199,7 +199,6 @@ function HorizontalLinearStepper() {
                         <CircularProgress />
                     </Box>
                 )}
-
                 {!loading && scoreResults && (
                     <DetailedResults scoringResult={scoreResults} />
                 )}
@@ -237,7 +236,7 @@ function HorizontalLinearStepper() {
                         marginTop: 4,
                         marginBottom: 4,
                         backgroundColor: "#1c4aa6",
-                        borderRadius: 0
+                        borderRadius: 6
                     }}
                 />
             </Box>
