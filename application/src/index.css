@@ -14,11 +14,11 @@ code {
 }
 
 .homepage-background {
-  background-image: url('./images/eyehole.jpg');
+  background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.34)), url('./images/eyehole.jpg');
   background-size: 120%; /* Increase the value to zoom in */
   background-repeat: no-repeat;
   background-position: center;
-  background-color: #00008B; /* Dark blue background color */
+  background-color: #000000; /* Dark blue background color */
   height: 100vh;
   overflow-x: hidden; /* Prevent horizontal scrolling */
 }
