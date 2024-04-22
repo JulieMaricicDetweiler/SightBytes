@@ -18,6 +18,7 @@ code {
   background-size: 120%; /* Increase the value to zoom in */
   background-repeat: no-repeat;
   background-position: center;
+  background-color: #00008B; /* Dark blue background color */
   height: 100vh;
   overflow-x: hidden; /* Prevent horizontal scrolling */
 }
