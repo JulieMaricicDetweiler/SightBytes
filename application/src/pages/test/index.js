@@ -126,19 +126,28 @@ const Test = () => {
       const db = getDatabase();
       const sessionRef = ref(db, `sessions/${sessionId}`);
       const answerRef = ref(db, `sessions/${sessionId}/${!leftDone ? 'leftEyeQuestions' : 'rightEyeQuestions'}/${currentQuestionIndex}/answer`);
+      const correctAnswerRef = ref(db, `sessions/${sessionId}/${!leftDone ? 'leftEyeQuestions' : 'rightEyeQuestions'}/${currentQuestionIndex}/letter`);
+
 
       set(answerRef, currentAnswer)
         .then(() => {
           console.log("Answer submitted successfully.");
           // Check if it's the last question for the current eye
           const newIndex = currentQuestionIndex + 1;
+
+          let correctAnswer = '';
+
+          get(correctAnswerRef).then(snapshot => {
+            correctAnswer = snapshot.val();
+          });
   
           get(sessionRef).then(snapshot => {
             const sessionData = snapshot.val();
             const eyeQuestionKey = !leftDone ? 'leftEyeQuestions' : 'rightEyeQuestions';
             const totalQuestions = sessionData[eyeQuestionKey].length;
   
-            if (newIndex < totalQuestions) {
+            if (newIndex < totalQuestions && correctAnswer.toUpperCase() === currentAnswer.toUpperCase()) {
+              console.log(currentAnswer, correctAnswer, "correct");
               // Not the last question, move to the next one
               navigateQuestion('next');
             } else {
@@ -171,7 +180,7 @@ const Test = () => {
   
       
   return (
-      <div className="test-page-container">
+      <div className="test-page-container" style={{position: 'relative', marginTop: '150px'}}>
 
           {!isMobile && !sessionId && (
             <HorizontalLinearStepper/>

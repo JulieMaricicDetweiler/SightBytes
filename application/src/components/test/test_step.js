@@ -270,7 +270,8 @@ const Test_Step = ({ onTestCompletion, onSessionIdChange }) => {
         rightAck: false, // set to false to show disclaimer
         leftDone: false, // indicates completion of left eye
         rightDone: false, // indicates completion of right eye
-        completed: false  // indicates completion of test
+        completed: false,  // indicates completion of test
+        date: Date.now()
       }).then(() => {
         console.log(`Session ${sessionId} successfully created in Firebase.`);
       }).catch((error) => {
@@ -299,7 +300,7 @@ const Test_Step = ({ onTestCompletion, onSessionIdChange }) => {
                     visibility: "hidden", // Hide from the user
                 }}
             />
-            <Box sx={{ my: 4, display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+            <Box sx={{ my: 4, display: 'flex', flexDirection: 'column', alignItems: 'center', mt: 10 }}>
             {sessionId && !isCompleted && (
                 <>
                 <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', width: '100%' }}>
