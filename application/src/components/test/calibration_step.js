@@ -77,7 +77,7 @@ const Calibration_Step = () => {
       >
         <Link to="/">
           <Button>
-            <CloseIcon fontSize={"medium"} />
+            <CloseIcon fontSize={"large"} />
           </Button>
         </Link>
       </Box>
@@ -95,15 +95,27 @@ const Calibration_Step = () => {
           sx={{
             display: "flex",
             justifyContent: "center",
-            fontFamily: "helvetica",
-            fontWeight: 500,
+            fontFamily: "garamond",
+            fontWeight: "bold",
             color: "black",
-            typography: { xs: "h5", sm: "h4", md: "h3" },
+            fontSize: "4em"
           }}
         >
           Calibration Step
         </Typography>
-        <Webcam height={600} width={600} ref={webcamRef} />
+        <div
+          style={{
+            border: "5px solid lightblue",
+            borderRadius: "5px",
+            width: "600px",
+            height: "450px",
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center"
+          }}
+        >
+          <Webcam height={600} width={600} ref={webcamRef} />
+        </div>
         {finalFocalPoint && (
           <Typography variant="body1">
             Focal Point: {finalFocalPoint.toFixed(2)} 

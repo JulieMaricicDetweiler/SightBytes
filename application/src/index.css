@@ -5,9 +5,19 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  height: 100vh; /* Ensure the body fills the entire viewport height */
 }
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
+}
+
+.homepage-background {
+  background-image: url('./images/eyehole.jpg');
+  background-size: 120%; /* Increase the value to zoom in */
+  background-repeat: no-repeat;
+  background-position: center;
+  height: 100vh;
+  overflow-x: hidden; /* Prevent horizontal scrolling */
 }
