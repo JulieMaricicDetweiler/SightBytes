@@ -11,6 +11,7 @@ import Contact from "./pages/contact"
 
 // OUR NAVBAR
 import Navbar from './components/navbar'
+import TestEndpoint from './pages/apiTesting';
 
 
 function App() {
@@ -26,6 +27,7 @@ function App() {
         <Route path="/user" element={<User/>} />
         <Route path="/about" element={<About/>} />
         <Route path="/contact" element={<Contact/>} />
+        <Route path="/testEndpoint" element={<TestEndpoint/>} />
       </Routes>
     </Router>
   );
