@@ -23,10 +23,19 @@ const TestEndpoint = () => {
     // Handle form submission
     const handleSubmit = (event) => {
         event.preventDefault(); // Prevent default form submission behavior
+
+        // Add a hardcoded project token
+        const projectToken = 'L3zYcBBKKEeT3FtkFlwN'; // Replace 'your_project_token_here' with your actual token
+
+        const dataWithToken = {
+            ...formData,
+            projectToken // Include the project token in the request
+        };
+
         const requestOptions = {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(formData)
+            body: JSON.stringify(dataWithToken)
         };
 
         // Assuming your endpoint URL is defined here
@@ -90,7 +99,7 @@ const TestEndpoint = () => {
                     <option value="medium">Medium</option>
                     <option value="high">High</option>
                 </TextField>
-                <Button type="submit" variant="contained" color="primary" sx={{ mt: 2 }}>
+                <Button type="submit" variant="contained" color="primary" sx={{ mt: 2, mb: 5}}>
                     Submit Issue
                 </Button>
             </form>
