@@ -72,7 +72,7 @@ const TestEndpoint = () => {
                     margin="normal"
                 />
                 <TextField
-                    label="Reporter"
+                    label="Your Email"
                     variant="outlined"
                     name="reporter"
                     value={formData.reporter}
